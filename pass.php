@@ -1,12 +1,12 @@
 <?php
-$password = 'VinasPassword';
+$password = 'Vinas2025';
 $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
-echo $hashedPassword;
+echo  $hashedPassword;
 //Una "password tipo hash" (o contraseña hash) es una contraseña que ha sido transformada a través de un algoritmo hash, lo que significa que se ha convertido en una representación de caracteres alfanuméricos de longitud fija y generalmente no reversible. Este proceso es una forma de proteger la contraseña original en una base de datos, ya que es muy difícil (y casi imposible) volver a obtener la contraseña original a partir de su hash. 
 ?>
 
 
-<?php
+<?php    
 define('DB_HOST', 'localhost');
 define('DB_USER', 'connectm_lasvinas');
 define('DB_PASS', 'MSistemax23.');

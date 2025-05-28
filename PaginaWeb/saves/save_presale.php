@@ -1,3 +1,4 @@
+
 <?php
 require_once ("../cn/connect2.php");
 $amn = $_POST['amn'];
