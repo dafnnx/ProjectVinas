@@ -1,88 +1,6 @@
   var loadershowmini = '<img src="./img/vinasloader.svg" width="10%" style="margin: 0 auto;display: flex;">';
   var loadershow = '<img src="./img/vinasloader.svg" width="50%" style="margin: 0 auto;display: flex;">';
-
-/*newresidente*/
-   $( "#selresi" ).submit(function( event ) {
-  $('#saveresi').attr("disabled", true);
- var parametros = $(this).serialize();
-    $.ajax({
-         type: "POST",
-         url: "./saves/save_resident.php",
-         data: parametros,
-         beforeSend: function(objeto){
-             $('#sresi').html(loadershowmini);
-           },
-            success:function(rid){        
-               Swal.fire({
-               icon: 'success',
-               title: 'Correcto!!',
-               showConfirmButton: false,
-               timer: 1500
-               })
-            loadresidente(rid);
-            $('#resic_id').val(rid); 
-            $('#saved_idrcont').val(rid);
-            $('#saved_clot').val(rid);
-            $('#resic_inv').val(rid); 
-            $('#resic_treat').val(rid); 
-            }
-   })  
-    event.preventDefault();
-})
-/*newresidente*/
-
-/*loadresidente*/
-  function loadresidente(rid){
-    $.ajax({
-         type: "POST",
-         url: "./ajax/load_residente.php",
-         data: {rid:rid},
-            success:function(data){    
-            $('#sresi').html(data); 
-            }
-   })  
-    event.preventDefault();
-}
-/*loadresidente*/
-
-/*newcontact*/
-   $( "#selcont" ).submit(function( event ) {
-   $('#savecont').attr("disabled", true);
-   var rid = $('#saved_idrcont').val();  
-if (rid){
-   var parametros = $(this).serialize(); 
-    $.ajax({
-         type: "POST",
-         url: "./saves/save_contact.php",
-         data: parametros,
-         beforeSend: function(objeto){
-            $('#resict').html(loadershowmini);
-           },
-            success:function(){  
-               Swal.fire({
-               icon: 'success',
-               title: 'Correcto!!',
-               showConfirmButton: false,
-               timer: 1500
-               })          
-            $('#resict').html("");
-            $('#savecont').attr("disabled", false);
-            loadcontact(rid);
-            }   
-   })  
-         }
-         else {
-         Swal.fire({
-               icon: 'error',
-               title: '¡No hay residente seleccionado!',
-               showConfirmButton: false,
-               timer: 1500
-               })
-         $('#savecont').attr("disabled", false);
-         }
-event.preventDefault();  
-})
-
+ 
  function newcontact(rid){
 var n_cont = $('#n_cont').val(); 
 var p_cont = $('#p_cont').val(); 
@@ -2094,3 +2012,155 @@ async function saveguest(idr, usr, pass){
 }
 
 
+
+
+/***
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ */
+// AGREGAR ESTAS FUNCIONES A TU ARCHIVO DE ENSERES (ej: js/enseres.js o js/enslist.js)
+
+// Función para obtener los enseres seleccionados
+function getSelectedEnseres() {
+    var selectedIds = [];
+    $('.thecheckgralt:checked').each(function() {
+        selectedIds.push($(this).val());
+    });
+    return selectedIds;
+}
+
+// Función modificada para el botón Status
+function statusSelectedEnseres() {
+    var selectedIds = getSelectedEnseres();
+    
+    if (selectedIds.length === 0) {
+        Swal.fire({
+            icon: 'warning',
+            title: 'Sin selección',
+            text: 'Debe seleccionar al menos un enser para cambiar su status',
+            showConfirmButton: true
+        });
+        return;
+    }
+    
+    var rid = $('#tgtrid').val();
+    
+    // Cargar el modal con la información de enseres seleccionados
+    $.ajax({
+        type: "POST",
+        url: './ajax/sta_body_selected.php',
+        data: {
+            rid: rid,
+            selected_ids: selectedIds
+        },
+        beforeSend: function() {
+            $('#status_modal_body').html(loadershow);
+        },
+        success: function(data) {
+            $('#status_modal_body').html(data);
+            showStatusModal();
+        }
+    });
+}
+/*
+// Función para procesar el cambio de status de enseres seleccionados
+function enseres_sta_selected(rid) {
+    var selectedIds = getSelectedEnseres();
+    var motivo = $('input[name="motivo_ense"]').val();
+    var persona = $('input[name="persona_ense"]').val();
+    
+    if (!motivo.trim()) {
+        Swal.fire({
+            icon: 'warning',
+            title: 'Campo requerido',
+            text: 'Debe ingresar el motivo de salida'
+        });
+        return;
+    }
+    
+    if (!persona.trim()) {
+        Swal.fire({
+            icon: 'warning',
+            title: 'Campo requerido',
+            text: 'Debe ingresar la persona responsable'
+        });
+        return;
+    }
+    
+    $.ajax({
+        type: "POST",
+        url: './saves/status_enseres_selected.php',
+        data: {
+            rid: rid,
+            selected_ids: selectedIds,
+            motivo: motivo,
+            persona: persona
+        },
+        beforeSend: function() {
+            $('#ensedown_answ').html(loadershowmini);
+        },
+        success: function(response) {
+            try {
+                var result = JSON.parse(response);
+                Swal.fire({
+                    icon: result.status === 'success' ? 'success' : 'error',
+                    title: result.status === 'success' ? '¡Correcto!' : 'Error',
+                    text: result.message,
+                    showConfirmButton: false,
+                    timer: 2000
+                });
+                
+                if (result.status === 'success') {
+                    hideStatusModal();
+                    // Recargar la lista de enseres - ajusta según tu función
+                    loadenseres(); // o la función que uses para recargar
+                }
+            } catch (e) {
+                $('#ensedown_answ').html(response);
+            }
+        },
+        error: function() {
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'Ha ocurrido un error al procesar la solicitud'
+            });
+        }
+    });
+}
+*/
+// Funciones para mostrar/ocultar modal
+function showStatusModal() {
+    $('#statusModal').show();
+}
+
+function hideStatusModal() {
+    $('#statusModal').hide();
+}

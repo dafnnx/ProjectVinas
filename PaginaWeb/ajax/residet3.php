@@ -65,7 +65,7 @@
 </div> 
 <div class="pad10half actcss" id="lsa">
 
-
+<!--
 <div class="subpren20ens">
             <input type="checkbox" class="thecheckgral" id="boxgral">
                 <label for="boxgral" class="mleft5" ></label>
@@ -73,6 +73,8 @@
                 <p class="cpoint mleft10 munset" id="checkgral"></p>
         </div>          
 </div>
+-->
+
         <input type="text" class="nputsearch w80per pad5half" id="qa" placeholder="Buscar enseres activos" onkeyup="ens_list('<?php echo $rid ?>');" autocomplete="off">
 
 
