@@ -81,14 +81,14 @@
 </div>
 <div class="pad10half bajcss" id="lsb">
 
-
+<!--
 <div class="subpren20ens">
             <input type="checkbox" class="thecheckgralbajas" id="boxgralbajas">
                 <label for="boxgralbajas" class="mleft5" ></label>
         <div class="mleft10 cpoint dpinblock">
                 <p class="cpoint mleft10 munset" id="checkgralbajas"></p>
         </div>          
-</div>
+</div>-->
         <input type="text" class="nputsearch w80per pad5half" id="qb" placeholder="Buscar enseres bajas" onkeyup="ens_list_bajas('<?php echo $rid ?>');" autocomplete="off">
 
 

@@ -56,16 +56,16 @@ $rid =$_POST['rid'];
 				<tr>		
 					<th class='text-center'>
 						<input type="checkbox" id="select-all-header" onchange="toggleAllCheckboxes(this)">
-						<label for="select-all-header">Sel</label>
+						<label for="select-all-header"><strong>Sel</label>
 					</th>
-					<th class='text-center'>Nombre</th>
-					<th class='text-center'>Talla</th>
-					<th class='text-center'>Marca</th>
-					<th class='text-center'>Color</th>
-					<th class='text-center'>Observa</th>
-					<th class='text-center'>Fecha</th>
-					<th class='text-center'>Condición</th>					
-					<th class='text-center'>*</th>							
+					<th class='text-center'><strong>Nombre</th>
+					<th class='text-center'><strong>Talla</th>
+					<th class='text-center'><strong>Marca</th>
+					<th class='text-center'><strong>Color</th>
+					<th class='text-center'><strong>Observa</th>
+					<th class='text-center'><strong>Fecha</th>
+					<th class='text-center'><strong>Condición</th>					
+					<th class='text-center'><strong>*</th>							
 				</tr>
 				</thead>
 				<?php
