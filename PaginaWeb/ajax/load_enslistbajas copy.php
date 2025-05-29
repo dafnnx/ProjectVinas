@@ -102,7 +102,7 @@ if($action == 'ajax'){
                 </div>
             </div>
 
-            <!-- Información del residente visible
+            <!-- Información del residente visible (opcional) -->
             <div style="margin-bottom: 15px; padding: 12px; background-color: #e8f5e8; border-left: 4px solid #28a745; border-radius: 4px;">
                 <strong style="color: #155724;">Residente:</strong> 
                 <span style="color: #155724; font-weight: 600;"><?php echo htmlspecialchars($resident_name); ?></span>
@@ -110,7 +110,7 @@ if($action == 'ajax'){
                     Total enseres de baja: <strong><?php echo $numrows; ?></strong>
                 </span>
             </div>
-            -->
+            
             <table class="table" data-responsive="table" id="resultTable">
                 <thead>
                     <tr>		
