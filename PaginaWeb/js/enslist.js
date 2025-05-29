@@ -256,9 +256,79 @@ function reactivateSelectedEnseres() {
         }
     });
 }
-
+function processReactivation() {
+    var motivo = $('#reactivate_motivo').val().trim();
+    var persona = $('#reactivate_persona').val().trim();
+    var ids = $('#reactivate_ids').val();
+    var rid = $('#reactivate_rid').val();
+    
+    if (!motivo || !persona) {
+        Swal.fire({
+            icon: 'warning',
+            title: 'Campos requeridos',
+            text: 'Completa todos los campos obligatorios'
+        });
+        return;
+    }
+    
+    // Mostrar loading
+    Swal.fire({
+        title: 'Procesando...',
+        text: 'Reactivando enseres seleccionados',
+        allowOutsideClick: false,
+        showConfirmButton: false,
+        willOpen: () => {
+            Swal.showLoading();
+        }
+    });
+    
+    $.ajax({
+        url: './saves/reactivate_enseres_selected.php',
+        type: 'POST',
+        data: {
+            rid: rid,
+            selected_ids: ids.split(','),
+            motivo: motivo,
+            persona: persona
+        },
+        success: function(response) {
+            hideReactivateModal();
+            if (response.includes('success')) {
+                Swal.fire({
+                    icon: 'success',
+                    title: '¡Reactivación exitosa!',
+                    text: 'Los enseres se han reactivado correctamente',
+                    showConfirmButton: false,
+                    timer: 2500
+                }).then(() => {
+                    // Recargar las listas
+                    if (typeof loadenesactivos === 'function') {
+                        loadenesactivos();
+                    }
+                    if (typeof loadenesbaja === 'function') {
+                        loadenesbaja();
+                    }
+                });
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error en la reactivación',
+                    text: 'No se pudieron reactivar los enseres. Inténtalo de nuevo.'
+                });
+            }
+        },
+        error: function(xhr, status, error) {
+            hideReactivateModal();
+            Swal.fire({
+                icon: 'error',
+                title: 'Error de conexión',
+                text: 'No se pudo conectar con el servidor. Verifica tu conexión e inténtalo de nuevo.'
+            });
+        }
+    });
+}
 // Procesar reactivación
-function processReactivation(selectedIds, motivo, persona) {
+function processReactivationN(selectedIds, motivo, persona) {
     var rid = $('#tgtrid').val() || currentResidentId;
     
     // Mostrar loading

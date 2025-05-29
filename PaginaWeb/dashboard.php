@@ -6,3 +6,4 @@
 ?>
 <script type="text/javascript" src="./js/status_enseres.js"></script>
 <script type="text/javascript" src="./js/utils.js"></script>
+<script type="text/javascript" src="./js/enslist.js"></script>
