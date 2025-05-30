@@ -52,9 +52,9 @@
   <div class="subpren10 mr1per">
     <a href="reportes/reporte_ropa.php?idr=<?php echo $rid ?>"><input type="button" class="nputsave" value="Exportar"></a>
   </div>
-  <div class="subpren10">
+  <!--<div class="subpren10">
     <input type="button" class="nputsave" onclick="mdl(modenssta, 'ensstaclose')" value="Status">
-  </div>
+  </div>-->
 </div>    
 </div>   
         </div>

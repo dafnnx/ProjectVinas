@@ -1,3 +1,4 @@
+
 <?php	
 $rid = $_POST['rid']; 
 require_once ("../cn/connect2.php"); 	
@@ -37,6 +38,8 @@ if($action == 'ajax'){
         $numrows = $row['numrows'];
     }
     
+    // ============ AQUÍ ESTÁ EL CAMBIO PRINCIPAL ============
+    /*
     $query = $db2->prepare("SELECT rr.*, 
                                    hr.motivo_ropastatus, 
                                    hr.fecha_ropastatus, 
@@ -54,6 +57,24 @@ if($action == 'ajax'){
                                 )
                             ) hr ON rr.id_rresidente = hr.id_rresidente
                             $sWhere LIMIT 250");
+    */
+    
+    // POR ESTA CONSULTA OPTIMIZADA:
+    $query = $db2->prepare("SELECT rr.*, 
+                                   hr.motivo_ropastatus, 
+                                   hr.fecha_ropastatus, 
+                                   hr.persona_ropastatus
+                            FROM $sTable rr 
+                            LEFT JOIN hist_ropastatus hr ON rr.id_rresidente = hr.id_rresidente 
+                                AND hr.status_ropastatus = 'baja'
+                                AND hr.fecha_ropastatus = (
+                                    SELECT MAX(fecha_ropastatus) 
+                                    FROM hist_ropastatus hr2 
+                                    WHERE hr2.id_rresidente = rr.id_rresidente 
+                                    AND hr2.status_ropastatus = 'baja'
+                                )
+                            $sWhere LIMIT 250");
+    
     $query->execute();
     
     if ($numrows > 0) { ?>
