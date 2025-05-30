@@ -145,7 +145,7 @@ function statusSelectedEnseres() {
         }
     });
 }
-
+/*
 // Procesar cambio de status (dar de baja)
 function processStatusChange(selectedIds, motivo, persona) {
     var rid = $('#tgtrid').val() || currentResidentId;
@@ -201,7 +201,7 @@ function processStatusChange(selectedIds, motivo, persona) {
         }
     });
 }
-
+*/
 // Función para reactivar enseres seleccionados
 function reactivateSelectedEnseres() {
     var selectedIds = [];
@@ -518,6 +518,7 @@ function getSelectedEnseres() {
 }
 
 // Función modificada para el botón Status
+/*
 function statusSelectedEnseres() {
     var selectedIds = getSelectedEnseres();
     
@@ -550,6 +551,7 @@ function statusSelectedEnseres() {
         }
     });
 }
+    */
 /*
 // Función para procesar el cambio de status de enseres seleccionados
 function enseres_sta_selected(rid) {

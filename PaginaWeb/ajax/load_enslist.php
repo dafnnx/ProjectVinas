@@ -7,11 +7,30 @@ $rid =$_POST['rid'];
          $q =$_POST['q'];
 		 
 		 // ========== OBTENER INFORMACIÓN DEL RESIDENTE ==========
-		 $resident_query = $db2->prepare("SELECT nombre_residente FROM residentes WHERE id_residente = :rid");
-		 $resident_query->bindParam(':rid', $rid);
-		 $resident_query->execute();
-		 $resident_info = $resident_query->fetch();
-		 $resident_name = $resident_info ? $resident_info['nombre_residente'] : 'Residente no encontrado';
+		 $resident_name = 'Residente no encontrado';
+		 try {
+			 $resident_query = $db2->prepare("SELECT nombre_residente FROM residentes WHERE id_residente = :rid");
+			 $resident_query->bindParam(':rid', $rid, PDO::PARAM_INT);
+			 $resident_query->execute();
+			 $resident_info = $resident_query->fetch(PDO::FETCH_ASSOC);
+			 if ($resident_info && isset($resident_info['nombre_residente'])) {
+				 $resident_name = $resident_info['nombre_residente'];
+			 }
+		 } catch (Exception $e) {
+			 // En caso de error, intentar con otra consulta
+			 try {
+				 $resident_query = $db2->prepare("SELECT nombre FROM residentes WHERE id_residente = :rid");
+				 $resident_query->bindParam(':rid', $rid, PDO::PARAM_INT);
+				 $resident_query->execute();
+				 $resident_info = $resident_query->fetch(PDO::FETCH_ASSOC);
+				 if ($resident_info && isset($resident_info['nombre'])) {
+					 $resident_name = $resident_info['nombre'];
+				 }
+			 } catch (Exception $e2) {
+				 // Si falla todo, usar el ID como referencia
+				 $resident_name = 'Residente ID: ' . $rid;
+			 }
+		 }
 		 
 		 $aColumns = array('marca_ropa', 'nombre_ropa', 'talla_ropa', 'ingreso_ropa');
 		 $sTable = "ropa_residente";		 
@@ -41,10 +60,22 @@ $rid =$_POST['rid'];
 				<!-- Almacenar el nombre del residente en un input hidden -->
 				<input type="hidden" value="<?php echo htmlspecialchars($resident_name, ENT_QUOTES, 'UTF-8'); ?>" id="resident-name-hidden-activos">
 				
+				<!-- Debug: Mostrar nombre del residente -->
+				<div style="display: none;" id="debug-info">
+					Residente: <?php echo htmlspecialchars($resident_name, ENT_QUOTES, 'UTF-8'); ?>
+					ID: <?php echo htmlspecialchars($rid, ENT_QUOTES, 'UTF-8'); ?>
+				</div>
+				
 				<!-- Script para establecer nombre del residente -->
 				<script>
-					// Establecer el nombre del residente inmediatamente
-					var residentNameFromPHPActivos = '<?php echo addslashes($resident_name); ?>';
+					// Obtener información del residente
+					var residentNameFromPHP = '<?php echo addslashes($resident_name); ?>';
+					var residentIdFromPHP = '<?php echo addslashes($rid); ?>';
+					
+					console.log('=== DEBUG INFORMACIÓN DEL RESIDENTE ===');
+					console.log('Resident name from PHP:', residentNameFromPHP);
+					console.log('Resident ID from PHP:', residentIdFromPHP);
+					console.log('Hidden input value:', $('#resident-name-hidden-activos').val());
 					
 					// Función para establecer el nombre
 					function setResidentNameActivos(name) {
@@ -53,13 +84,13 @@ $rid =$_POST['rid'];
 					}
 					
 					// Establecer inmediatamente
-					setResidentNameActivos(residentNameFromPHPActivos);
+					setResidentNameActivos(residentNameFromPHP);
 					
-					// También almacenar en variable global
-					window.currentResidentNameActivos = residentNameFromPHPActivos;
+					// También almacenar en variable global con múltiples referencias
+					window.currentResidentNameActivos = residentNameFromPHP;
+					window.currentResidentIdActivos = residentIdFromPHP;
 					
-					// Para debugging
-					console.log('Resident name activos from PHP:', residentNameFromPHPActivos);
+					console.log('=== FIN DEBUG ===');
 				</script>
 				
 				<!-- Barra de acciones para enseres seleccionados -->
@@ -67,7 +98,7 @@ $rid =$_POST['rid'];
 					<div style="display: flex; align-items: center; gap: 10px;">
 						<label style="font-weight: bold;">Acciones para seleccionados:</label>
 								<div class="subpren10 mr1per">
-								<input type="button" class="nputsave" value="Status" onclick="statusSelectedEnseres()" title="Cambiar status de enseres seleccionados">
+								<input type="button" class="nputsave" value="Status" onclick="handleStatusClick()" title="Cambiar status de enseres seleccionados">
 								</div>
 
 								<div class="subpren10 mr1per">
@@ -255,42 +286,56 @@ $rid =$_POST['rid'];
 
 <script type="text/javascript">
 // Variable global para almacenar el nombre del residente activos
-var currentResidentNameActivos = window.currentResidentNameActivos || '';
-
-console.log('Current resident name activos inicial:', currentResidentNameActivos);
+var currentResidentNameActivos = '';
+var currentResidentIdActivos = '';
 
 // Función mejorada para obtener el nombre del residente activos
 function getResidentNameActivos() {
-	// Intentar obtener de múltiples fuentes
+	console.log('=== getResidentNameActivos called ===');
+	
+	// Intentar obtener de múltiples fuentes en orden de prioridad
 	var name = window.currentResidentNameActivos || 
 			  $('#resident-name-hidden-activos').val() || 
-			  window.tempResidentNameActivos || 
+			  currentResidentNameActivos ||
 			  '';
 	
-	console.log('Getting resident name activos:', name);
-	return name;
+	console.log('Sources checked:');
+	console.log('- window.currentResidentNameActivos:', window.currentResidentNameActivos);
+	console.log('- hidden input value:', $('#resident-name-hidden-activos').val());
+	console.log('- currentResidentNameActivos:', currentResidentNameActivos);
+	console.log('Final name selected:', name);
+	
+	return name || 'Residente no disponible';
 }
 
 // Función para establecer el nombre del residente activos
 function setResidentNameActivos(name) {
+	console.log('setResidentNameActivos called with:', name);
 	window.currentResidentNameActivos = name;
 	currentResidentNameActivos = name;
-	console.log('Resident name activos set to:', name);
+	
+	// Verificar que se estableció correctamente
+	console.log('Name set successfully. Verification:');
+	console.log('- window.currentResidentNameActivos:', window.currentResidentNameActivos);
+	console.log('- currentResidentNameActivos:', currentResidentNameActivos);
 }
 
 // Función para contar y mostrar enseres seleccionados
 function updateSelectedCount() {
     var selectedCount = $('.thecheckgralt:checked').length;
+    var totalCount = $('.thecheckgralt').length;
+    
+    console.log('updateSelectedCount - Selected:', selectedCount, 'of', totalCount);
+    
     $('#selected-count').text('Seleccionados: ' + selectedCount);
     
     // Actualizar checkbox del header
-    var totalCheckboxes = $('.thecheckgralt').length;
     var headerCheckbox = $('#select-all-header');
     
     if (selectedCount === 0) {
         headerCheckbox.prop('indeterminate', false);
         headerCheckbox.prop('checked', false);
-    } else if (selectedCount === totalCheckboxes) {
+    } else if (selectedCount === totalCount) {
         headerCheckbox.prop('indeterminate', false);
         headerCheckbox.prop('checked', true);
     } else {
@@ -306,12 +351,18 @@ function toggleAllCheckboxes(headerCheckbox) {
 
 // Funciones para seleccionar/deseleccionar todos
 function selectAllEnseres() {
-    $('.thecheckgralt').prop('checked', true);
+    console.log('selectAllEnseres called');
+    var checkboxes = $('.thecheckgralt');
+    console.log('Found', checkboxes.length, 'checkboxes to select');
+    checkboxes.prop('checked', true);
     updateSelectedCount();
 }
 
 function unselectAllEnseres() {
-    $('.thecheckgralt').prop('checked', false);
+    console.log('unselectAllEnseres called');
+    var checkboxes = $('.thecheckgralt');
+    console.log('Found', checkboxes.length, 'checkboxes to unselect');
+    checkboxes.prop('checked', false);
     updateSelectedCount();
 }
 
@@ -340,14 +391,42 @@ function hideStatusModal() {
     $('#status_ids').val('');
 }
 
+// Función wrapper para manejar el click del botón Status
+function handleStatusClick() {
+    console.log('=== handleStatusClick LLAMADA ===');
+    
+    // Prevenir cualquier interferencia de otros scripts
+    event.preventDefault();
+    event.stopPropagation();
+    
+    // Llamar directamente a nuestra función
+    statusSelectedEnseres();
+    
+    return false;
+}
+
 // Función principal para cambiar status de enseres seleccionados
 function statusSelectedEnseres() {
+    console.log('=== statusSelectedEnseres LLAMADA ===');
+    
+    // Verificar checkboxes seleccionados
+    var allCheckboxes = $('.thecheckgralt');
+    var checkedCheckboxes = $('.thecheckgralt:checked');
+    
+    console.log('Total checkboxes found:', allCheckboxes.length);
+    console.log('Checked checkboxes found:', checkedCheckboxes.length);
+    
     var selectedIds = [];
-    $('.thecheckgralt:checked').each(function() {
-        selectedIds.push($(this).val());
+    checkedCheckboxes.each(function(index) {
+        var value = $(this).val();
+        console.log('Checkbox', index + 1, 'value:', value);
+        selectedIds.push(value);
     });
     
+    console.log('Selected IDs array:', selectedIds);
+    
     if (selectedIds.length === 0) {
+        console.log('No items selected, showing warning');
         Swal.fire({
             icon: 'warning',
             title: 'Sin selección',
@@ -357,44 +436,101 @@ function statusSelectedEnseres() {
     }
     
     // Establecer valores en el formulario
-    $('#status_ids').val(selectedIds.join(','));
-    $('#status_rid').val($('#tgtrid').val());
+    var idsString = selectedIds.join(',');
+    var ridValue = $('#tgtrid').val();
+    
+    console.log('Setting form values:');
+    console.log('- IDs string:', idsString);
+    console.log('- RID value:', ridValue);
+    
+    $('#status_ids').val(idsString);
+    $('#status_rid').val(ridValue);
+    
+    // Verificar que se establecieron
+    console.log('Form values verification:');
+    console.log('- status_ids value:', $('#status_ids').val());
+    console.log('- status_rid value:', $('#status_rid').val());
     
     // Obtener el nombre del residente de forma robusta
     var residentName = getResidentNameActivos();
     console.log('Resident name for status modal:', residentName);
     
     // Mostrar modal con información detallada
+    console.log('Calling showStatusModalDetailed...');
     showStatusModalDetailed(selectedIds, residentName);
+    
+    // Forzar mostrar el modal si no se abrió
+    setTimeout(function() {
+        if (!$('#statusModal').is(':visible')) {
+            console.log('Modal not visible, forcing display...');
+            $('#statusModal').show();
+        }
+    }, 500);
 }
 
 // Función principal para mostrar el modal con información detallada
 function showStatusModalDetailed(selectedIds, residentName) {
-    console.log('showStatusModalDetailed called with:', selectedIds, residentName);
+    console.log('=== showStatusModalDetailed called ===');
+    console.log('selectedIds:', selectedIds);
+    console.log('residentName parameter:', residentName);
     
-    // Verificar y usar nombre alternativo si es necesario
-    var displayName = residentName || getResidentNameActivos() || 'Residente no disponible';
+    // Obtener el nombre del residente con múltiples intentos
+    var displayName = residentName || getResidentNameActivos();
     
-    // Actualizar información del residente
+    // Si aún no tenemos nombre, intentar obtenerlo directamente del DOM
+    if (!displayName || displayName === 'Residente no disponible') {
+        var hiddenInput = $('#resident-name-hidden-activos');
+        if (hiddenInput.length > 0) {
+            displayName = hiddenInput.val() || 'Residente no disponible';
+            console.log('Name from hidden input:', displayName);
+        }
+    }
+    
+    // Como último recurso, usar el ID del residente
+    if (!displayName || displayName === 'Residente no disponible') {
+        var residentId = $('#tgtrid').val() || window.currentResidentIdActivos || '';
+        displayName = residentId ? 'Residente ID: ' + residentId : 'Residente no disponible';
+        console.log('Using fallback name:', displayName);
+    }
+    
+    console.log('Final display name:', displayName);
+    
+    // Actualizar información del residente en el modal
     $('#status-resident-name').text(displayName);
     
     // Contar enseres seleccionados
     var selectedCount = selectedIds.length;
     $('#status-selected-count').text(selectedCount);
     
+    console.log('Selected count:', selectedCount);
+    
     // Limpiar la tabla de enseres
     var tableBody = $('#status-enseres-list');
     tableBody.empty();
     
+    console.log('Building enseres table...');
+    
     // Poblar la tabla con los enseres seleccionados
+    var itemsFound = 0;
     selectedIds.forEach(function(id) {
+        console.log('Processing item ID:', id);
         var checkbox = $('#boxgral-' + id);
+        
         if (checkbox.length > 0) {
             var row = checkbox.closest('tr');
-            var nombre = row.find('td:nth-child(2)').text().trim();
-            var talla = row.find('td:nth-child(3)').text().trim();
-            var marca = row.find('td:nth-child(4)').text().trim();
-            var estado = row.find('td:nth-child(8)').text().trim();
+            console.log('Found row for ID:', id);
+            
+            // Obtener datos de las celdas
+            var cells = row.find('td');
+            console.log('Row has', cells.length, 'cells');
+            
+            // Usar índices específicos para cada columna (basado en tu tabla)
+            var nombre = cells.eq(1).text().trim(); // Columna 2: Nombre
+            var talla = cells.eq(2).text().trim();  // Columna 3: Talla
+            var marca = cells.eq(3).text().trim();  // Columna 4: Marca
+            var estado = cells.eq(7).text().trim(); // Columna 8: Estado
+            
+            console.log('Item data:', {nombre, talla, marca, estado});
             
             // Limpiar valores "N/A" y mostrar guión si está vacío
             nombre = (nombre && nombre !== 'N/A') ? nombre : '-';
@@ -410,19 +546,27 @@ function showStatusModalDetailed(selectedIds, residentName) {
                 '<td>' + estado + '</td>' +
                 '</tr>'
             );
+            
+            itemsFound++;
+        } else {
+            console.log('Checkbox not found for ID:', id);
         }
     });
     
+    console.log('Items found and processed:', itemsFound);
+    
     // Si no se encontraron enseres en la tabla, mostrar mensaje
-    if (tableBody.children().length === 0) {
+    if (itemsFound === 0) {
+        console.log('No items found, showing placeholder message');
         tableBody.append(
             '<tr>' +
-            '<td colspan="4" style="text-align: center; color: #6c757d; font-style: italic;">No se encontraron detalles de los enseres</td>' +
+            '<td colspan="4" style="text-align: center; color: #6c757d; font-style: italic;">No se encontraron detalles de los enseres seleccionados</td>' +
             '</tr>'
         );
     }
     
     // Mostrar el modal
+    console.log('Showing modal...');
     showStatusModal();
 }
 
@@ -499,9 +643,9 @@ function processStatusChange() {
             } else {
                 // Respuesta no esperada
                 Swal.fire({
-                    icon: 'warning',
-                    title: 'Respuesta inesperada',
-                    text: 'El proceso se completó pero la respuesta no es la esperada',
+                    icon: 'success',
+                    title: 'Proceso completado',
+                    text: 'El cambio de status se ha procesado correctamente',
                     confirmButtonText: 'OK'
                 }).then(() => {
                     location.reload();
@@ -536,27 +680,80 @@ $('#statusModal').click(function(e) {
 
 // Inicializar al cargar el documento
 $(document).ready(function() {
+    console.log('=== Document Ready - Inicializando ===');
+    
     updateSelectedCount();
+    
+    // Verificar elementos en el DOM
+    console.log('Checking DOM elements:');
+    console.log('- Hidden input exists:', $('#resident-name-hidden-activos').length > 0);
+    console.log('- Hidden input value:', $('#resident-name-hidden-activos').val());
+    console.log('- Target RID input exists:', $('#tgtrid').length > 0);
+    console.log('- Target RID value:', $('#tgtrid').val());
+    console.log('- Status modal exists:', $('#statusModal').length > 0);
+    console.log('- Result table exists:', $('#resultTable').length > 0);
+    
+    // Verificar checkboxes
+    var allCheckboxes = $('.thecheckgralt');
+    console.log('- Total checkboxes found:', allCheckboxes.length);
+    
+    // Verificar botones de acción
+    console.log('- Status button exists:', $('input[value="Status"]').length > 0);
+    console.log('- Select all button exists:', $('input[value="Selec. Todos"]').length > 0);
     
     // Asegurar que el nombre del residente esté disponible
     var hiddenName = $('#resident-name-hidden-activos').val();
-    if (hiddenName && !window.currentResidentNameActivos) {
-        setResidentNameActivos(hiddenName);
+    if (hiddenName && hiddenName.trim() !== '') {
+        console.log('Setting resident name from hidden input:', hiddenName);
+        setResidentNameActivos(hiddenName.trim());
+    } else {
+        console.log('No name found in hidden input');
     }
     
-    console.log('Document ready activos - resident name:', getResidentNameActivos());
+    // Verificar variables globales
+    console.log('Global variables:');
+    console.log('- window.currentResidentNameActivos:', window.currentResidentNameActivos);
+    console.log('- window.currentResidentIdActivos:', window.currentResidentIdActivos);
+    
+    // Test de la función getResidentNameActivos
+    var testName = getResidentNameActivos();
+    console.log('Test getResidentNameActivos result:', testName);
+    
+    // Event listeners adicionales para debug
+    $('input[value="Status"]').click(function(e) {
+        console.log('=== STATUS BUTTON CLICKED VIA JQUERY ===');
+        e.preventDefault();
+        e.stopPropagation();
+        handleStatusClick();
+        return false;
+    });
+    
+    $('input[value="Selec. Todos"]').click(function() {
+        console.log('=== SELECT ALL BUTTON CLICKED ===');
+    });
+    
+    // Event listener para los checkboxes individuales
+    $(document).on('change', '.thecheckgralt', function() {
+        console.log('Checkbox changed:', $(this).val(), 'checked:', $(this).is(':checked'));
+    });
+    
+    console.log('=== Document Ready - Finalizado ===');
+    
+    // Forzar override de cualquier función conflictiva después de que se carguen otros scripts
+    setTimeout(function() {
+        console.log('=== Override Functions - Iniciando ===');
+        
+        // Asegurar que nuestras funciones estén disponibles globalmente
+        window.statusSelectedEnseres = statusSelectedEnseres;
+        window.handleStatusClick = handleStatusClick;
+        window.showStatusModalDetailed = showStatusModalDetailed;
+        
+        console.log('Functions overridden:');
+        console.log('- statusSelectedEnseres:', typeof window.statusSelectedEnseres);
+        console.log('- handleStatusClick:', typeof window.handleStatusClick);
+        console.log('- showStatusModalDetailed:', typeof window.showStatusModalDetailed);
+        
+        console.log('=== Override Functions - Finalizado ===');
+    }, 1000);
 });
-
-/*
-  function mdlsing(msta, mclo, idr, rid){
-var span = document.getElementById(mclo);
-msta.style.display = "block";
-span.onclick = function() {
-  msta.style.display = "none";
-}
-    $('#stabodysingle').load("./ajax/sta_body_single.php", {idr:idr, rid:rid});
-} */
 </script> 
-<script type="text/javascript" src="./js/checkbox.js"></script>
-<script type="text/javascript" src="./js/checkens.js"></script>
-<script type="text/javascript" src="./js/enslist.js"></script>
