@@ -8,89 +8,145 @@ $infores= loadres($idr);
     foreach ($infores as $inforess):
 endforeach;
 
-$mihtml = '<!DOCTYPE HTML>';
-$mihtml .= '<head>';
-$mihtml .= '<link rel="stylesheet" href="style.css" type="text/css" />';
-$mihtml .= '</head>';
-$mihtml .= '<body>';
-$mihtml .= '<br>';
+// Función para generar el encabezado
+function generarEncabezado($inforess, $titulo) {
+    $header = '<!DOCTYPE HTML>';
+    $header .= '<head>';
+    $header .= '<link rel="stylesheet" href="style.css" type="text/css" />';
+    $header .= '</head>';
+    $header .= '<body>';
+    $header .= '<br>';
+    
+    $header .= '<div class="bannerhub">';
+    $header .= '                    <div class="imgblock">';
+    $header .= '                       <img src="img/bgvinas.png"  width="170" height="90">';
+    $header .= '                    </div>';
+    $header .= '</div>';
+    
+    $header .= '<div class="headerss">' . $titulo . '</div>';
+    $header .= '<div class="separ"></div>';
+    $header .= '<div class="sides">';
+    $header .= '<div class="sidea">';
+    $header .= '<table class="sesiontable2" id="sesiontable">';
+    $header .= '<tr>';
+    $header .= '<th>Nombre:</th>';
+    $header .= '<td class="spacee">'.$inforess['nombre_residente'].'</td>';  
+    $header .= '</tr>';
+    $header .= '<tr>';
+    $header .= '</tr>';
+    $header .= '</table>';
+    $header .= '</div>';
+    $header .= '<div class="sideb">';
+    $header .= '<table class="sesiontable2" id="sesiontable">';
+    $header .= '<tr>';
+    $header .= '<th>Fecha:</th>';
+    $header .= '<td>'.date('Y-m-d').'</td>';
+    $header .= '</tr>';
+    $header .= '<tr>';
+    $header .= '</tr>';
+    $header .= '</table>';
+    $header .= '</div>';
+    $header .= '</div>';
+    
+    return $header;
+}
 
-$mihtml .= '<div class="bannerhub">';
-$mihtml .= '                    <div class="imgblock">';
-$mihtml .= '                       <img src="img/bgvinas.png"  width="170" height="90">';
-$mihtml .= '                    </div>';
-$mihtml .= '</div>';
+// Función para generar la tabla
+function generarTabla($registros) {
+    $tabla = '<table class="resultTable">';
+    $tabla .= '<thead>';
+    $tabla .= '<tr>';
+    $tabla .= '<th>Nombre</th>';
+    $tabla .= '<th>Talla</th>';
+    $tabla .= '<th>Marca</th>';
+    $tabla .= '<th>Color</th>';
+    $tabla .= '<th>Observaciones</th>';
+    $tabla .= '<th>Ingreso</th>';
+    $tabla .= '<th>Condición</th>';
+    $tabla .= '<th>Status</th>';
+    $tabla .= '</tr>';
+    $tabla .= '</thead>';
+    $tabla .= '<tbody>';
+    
+    foreach($registros as $row) {
+        $nombre = $row['nombre_ropa'];
+        $talla = $row['talla_ropa']; 
+        $color = $row['color_ropa']; 
+        $marca = $row['marca_ropa']; 
+        $observa = $row['observa_ropa']; 
+        $ingreso = $row['ingreso_ropa']; 
+        $estado = $row['estado_ropa']; 
+        $status = $row['status_ropa'];  
 
-$mihtml .= '<div class="headerss">LISTADO DE ENSERES</div>';
-$mihtml .= '<div class="separ"></div>';
-$mihtml .= '<div class="sides">';
-$mihtml .= '<div class="sidea">';
-$mihtml .= '<table class="sesiontable2" id="sesiontable">';
-$mihtml .= '<tr>';
-$mihtml .= '<th>Nombre:</th>';
-$mihtml .= '<td class="spacee">'.$inforess['nombre_residente'].'</td>';  
-$mihtml .= '</tr>';
-$mihtml .= '<tr>';
-$mihtml .= '</tr>';
-$mihtml .= '</table>';
-$mihtml .= '</div>';
-$mihtml .= '<div class="sideb">';
-$mihtml .= '<table class="sesiontable2" id="sesiontable">';
-$mihtml .= '<tr>';
-$mihtml .= '<th>Fecha:</th>';
-$mihtml .= '<td>'.date('Y-m-d').'</td>';
-$mihtml .= '</tr>';
-$mihtml .= '<tr>';
-$mihtml .= '</tr>';
-$mihtml .= '</table>';
-$mihtml .= '</div>';
-$mihtml .= '</div>';
-$mihtml .= '<table class="resultTable">';
-$mihtml .= '<thead>';
-$mihtml .= '<tr>';
-$mihtml .= '<th>Nombre</th>';
-$mihtml .= '<th>Talla</th>';
-$mihtml .= '<th>Marca</th>';
-$mihtml .= '<th>Color</th>';
-$mihtml .= '<th>Observaciones</th>';
-$mihtml .= '<th>Ingreso</th>';
-$mihtml .= '<th>Condición</th>';
-$mihtml .= '<th>Status</th>';
-$mihtml .= '</tr>';
-$mihtml .= '</thead>';
-$mihtml .= '<tbody>';
+        $tabla .= '<tr>';
+        $tabla .= '<td>'.$nombre.'</td>';
+        $tabla .= '<td>'.$talla.'</td>';
+        $tabla .= '<td>'.$marca.'</td>';
+        $tabla .= '<td><div class="muestra_color" style="background-color: '.$color.';"></div></td>';
+        $tabla .= '<td>'.$observa.'</td>';
+        $tabla .= '<td>'.$ingreso.'</td>';
+        $tabla .= '<td>'.$estado.'</td>';
+        $tabla .= '<td>'.$status.'</td>';
+        $tabla .= '</tr>';
+    }
+    
+    $tabla .= '</tbody>';
+    $tabla .= '</table>';
+    
+    return $tabla;
+}
 
-    $sql = "SELECT * FROM ropa_residente WHERE id_residente=$idr";
-    $sa4 = $db2->prepare($sql);
-    $sa4->execute();
-    for($i=0; $row = $sa4->fetch(); $i++) { 
+// Obtener todos los registros y separarlos por status
+$sql = "SELECT * FROM ropa_residente WHERE id_residente=$idr ORDER BY status_ropa, nombre_ropa";
+$sa4 = $db2->prepare($sql);
+$sa4->execute();
 
-     $nombre = $row['nombre_ropa'];
-     $talla = $row['talla_ropa']; 
-     $color = $row['color_ropa']; 
-     $marca = $row['marca_ropa']; 
-     $observa = $row['observa_ropa']; 
-     $ingreso = $row['ingreso_ropa']; 
-     $estado = $row['estado_ropa']; 
-     $status = $row['status_ropa'];  
+$activos = array();
+$bajas = array();
 
-$mihtml .= '<tr>';
-$mihtml .= '<td>'.$nombre.'</td>';
-$mihtml .= '<td>'.$talla.'</td>';
-$mihtml .= '<td>'.$marca.'</td>';
-$mihtml .= '<td><div class="muestra_color" style="background-color: '.$color.';"></div></td>';
-$mihtml .= '<td>'.$observa.'</td>';
-$mihtml .= '<td>'.$ingreso.'</td>';
-$mihtml .= '<td>'.$estado.'</td>';
-$mihtml .= '<td>'.$status.'</td>';
-$mihtml .= '</tr>';     }     ;
-$mihtml .= '</tbody>';
-$mihtml .= '</table>';
+while($row = $sa4->fetch()) { 
+    if(strtoupper($row['status_ropa']) == 'ACTIVO' || strtoupper($row['status_ropa']) == 'ACTIVE') {
+        $activos[] = $row;
+    } else {
+        $bajas[] = $row;
+    }
+}
 
-$mihtml .= '</div>';
-$mihtml .= '</body>';
+// Construir el HTML completo
+$mihtml = '';
+
+// Sección de ACTIVOS
+if(count($activos) > 0) {
+    $mihtml .= generarEncabezado($inforess, 'LISTADO DE ENSERES - ACTIVOS');
+    $mihtml .= generarTabla($activos);
+    $mihtml .= '</div>';
+    $mihtml .= '</body>';
+}
+
+// Salto de página y sección de BAJAS
+if(count($bajas) > 0) {
+    // Si hay activos, agregar salto de página
+    if(count($activos) > 0) {
+        $mihtml .= '<div style="page-break-before: always;"></div>';
+    }
+    
+    $mihtml .= generarEncabezado($inforess, 'LISTADO DE ENSERES - BAJAS');
+    $mihtml .= generarTabla($bajas);
+    $mihtml .= '</div>';
+    $mihtml .= '</body>';
+}
+
+// Si no hay registros de ningún tipo
+if(count($activos) == 0 && count($bajas) == 0) {
+    $mihtml .= generarEncabezado($inforess, 'LISTADO DE ENSERES');
+    $mihtml .= '<p>No se encontraron registros para este residente.</p>';
+    $mihtml .= '</div>';
+    $mihtml .= '</body>';
+}
+
 $mihtml .= '</html>';
-$codigoHTML=utf8_decode(utf8_encode($codigoHTML));
+
+// Generar PDF
 use Dompdf\Dompdf;
 $dompdf=new DOMPDF(['chroot' => __DIR__]);
 $dompdf->load_html($mihtml);
