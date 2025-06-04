@@ -191,10 +191,17 @@ function calculateWeeklyTotal() {
     
     // Determinar qué usar: "Día" o suma de horas
     let finalDosisPerDay = 0;
-    if (dosisPerDay > 0) {
+    let usingHourlyDosis = false;
+    
+    if (dosisPerDay > 0 && totalDosisPerDay > 0) {
+        // Ambos tienen valores, verificar consistencia
+        usingHourlyDosis = true;
+        finalDosisPerDay = dosisPerDay; // Usar el valor del día como referencia
+    } else if (dosisPerDay > 0) {
         finalDosisPerDay = dosisPerDay;
     } else if (totalDosisPerDay > 0) {
         finalDosisPerDay = totalDosisPerDay;
+        usingHourlyDosis = true;
     }
     
     // Calcular total semanal
@@ -204,7 +211,16 @@ function calculateWeeklyTotal() {
         days: totalDays,
         dosisPerDay: finalDosisPerDay,
         weeklyTotal: calculatedWeeklyTotal,
-        usingHourlyDosis: dosisPerDay === 0 && totalDosisPerDay > 0
+        usingHourlyDosis: usingHourlyDosis,
+        dailyDosis: dosisPerDay,
+        hourlyTotal: totalDosisPerDay,
+        hourlyDosis: {
+            h7: dosis7h,
+            h8: dosis8h,
+            h13: dosis13h,
+            h18: dosis18h,
+            h21: dosis21h
+        }
     };
 }
 
@@ -213,63 +229,262 @@ function validateWeeklyTotal() {
     const calculation = calculateWeeklyTotal();
     const inputTotal = parseFloat(document.getElementById('total_tratamiento').value) || 0;
     
-    const isValid = Math.abs(inputTotal - calculation.weeklyTotal) < 0.01; // Tolerancia para decimales
+    // Validar que hay días seleccionados
+    if (calculation.days === 0) {
+        return {
+            isValid: false,
+            error: 'DAYS_REQUIRED',
+            message: 'Debe seleccionar al menos un día de la semana'
+        };
+    }
     
-    // Mostrar información de validación
-    showValidationInfo(calculation, inputTotal, isValid);
+    // Validar que hay dosis configurada
+    if (calculation.dosisPerDay === 0) {
+        return {
+            isValid: false,
+            error: 'DOSIS_REQUIRED',
+            message: 'Debe ingresar la dosis por día o configurar las horas individuales'
+        };
+    }
     
-    return isValid;
+    // Validar que hay total semanal ingresado
+    if (inputTotal === 0) {
+        return {
+            isValid: false,
+            error: 'TOTAL_REQUIRED',
+            message: 'Debe ingresar el total semanal'
+        };
+    }
+    
+    // Validar consistencia entre día y horas si ambos están llenos
+    if (calculation.dailyDosis > 0 && calculation.hourlyTotal > 0) {
+        const tolerance = 0.01;
+        if (Math.abs(calculation.dailyDosis - calculation.hourlyTotal) > tolerance) {
+            return {
+                isValid: false,
+                error: 'INCONSISTENT_DOSIS',
+                message: `Inconsistencia: El campo "Día" (${calculation.dailyDosis}) no coincide con la suma de horas (${calculation.hourlyTotal})`,
+                calculation: calculation
+            };
+        }
+    }
+    
+    // Validar que el total semanal coincide
+    const tolerance = 0.01;
+    const isValid = Math.abs(inputTotal - calculation.weeklyTotal) < tolerance;
+    
+    if (!isValid) {
+        return {
+            isValid: false,
+            error: 'TOTAL_MISMATCH',
+            message: `El total semanal ingresado (${inputTotal}) no coincide con el cálculo automático (${calculation.weeklyTotal})`,
+            calculation: calculation,
+            inputTotal: inputTotal
+        };
+    }
+    
+    return {
+        isValid: true,
+        calculation: calculation,
+        inputTotal: inputTotal
+    };
 }
 
 // Función para mostrar información de validación en modal
-function showValidationInfo(calculation, inputTotal, isValid) {
-    let messageText = `
-        <div class="calc-details">
-            <div class="calc-row">
-                <span class="calc-label">Días seleccionados:</span>
-                <span class="calc-value">${calculation.days}</span>
-            </div>
-            <div class="calc-row">
-                <span class="calc-label">Dosis por día:</span>
-                <span class="calc-value">${calculation.dosisPerDay}</span>
-            </div>
-            <div class="calc-row calc-formula">
-                <span class="calc-label">Cálculo:</span>
-                <span class="calc-value">${calculation.days} × ${calculation.dosisPerDay} = ${calculation.weeklyTotal}</span>
-            </div>
-            <div class="calc-row">
-                <span class="calc-label">Total ingresado:</span>
-                <span class="calc-value">${inputTotal}</span>
-            </div>
-            ${calculation.usingHourlyDosis ? '<div class="calc-note">📝 Usando suma de dosis por horas</div>' : ''}
-        </div>
-    `;
+function showValidationInfo(validationResult) {
+    let messageText = '';
+    let title = '';
+    let statusClass = '';
     
-    const title = isValid ? '✅ Validación Correcta' : '❌ Error en el Cálculo';
-    const statusClass = isValid ? 'success' : 'error';
+    if (validationResult.isValid) {
+        title = '✅ Validación Correcta';
+        statusClass = 'success';
+        messageText = `
+            <div class="calc-details">
+                <div class="success-message">
+                    <div class="success-icon">✅</div>
+                    <div class="success-text">¡Todos los cálculos son correctos!</div>
+                </div>
+                <div class="calc-row">
+                    <span class="calc-label">Días seleccionados:</span>
+                    <span class="calc-value">${validationResult.calculation.days}</span>
+                </div>
+                <div class="calc-row">
+                    <span class="calc-label">Dosis por día:</span>
+                    <span class="calc-value">${validationResult.calculation.dosisPerDay}</span>
+                </div>
+                <div class="calc-row calc-formula">
+                    <span class="calc-label">Cálculo:</span>
+                    <span class="calc-value">${validationResult.calculation.days} × ${validationResult.calculation.dosisPerDay} = ${validationResult.calculation.weeklyTotal}</span>
+                </div>
+                <div class="calc-row">
+                    <span class="calc-label">Total ingresado:</span>
+                    <span class="calc-value">${validationResult.inputTotal}</span>
+                </div>
+                ${validationResult.calculation.usingHourlyDosis ? '<div class="calc-note">✓ Usando configuración de horas</div>' : ''}
+            </div>
+        `;
+    } else {
+        title = 'Error de Validación';
+        statusClass = 'error';
+        
+        switch (validationResult.error) {
+            case 'DAYS_REQUIRED':
+                messageText = `
+                    <div class="error-message">
+                        <div class="error-text">${validationResult.message}</div>
+                        <div class="error-hint">Seleccione los días de la semana en los que se aplicará el tratamiento.</div>
+                    </div>
+                `;
+                break;
+                
+            case 'DOSIS_REQUIRED':
+                messageText = `
+                    <div class="error-message">
+                        <div class="error-text">${validationResult.message}</div>
+                        <div class="error-hint">Complete el campo "Día" o configure las dosis por horas (7h, 8h, 13h, 18h, 21h).</div>
+                    </div>
+                `;
+                break;
+                
+            case 'TOTAL_REQUIRED':
+                messageText = `
+                    <div class="error-message">
+                        <div class="error-text">${validationResult.message}</div>
+                    </div>
+                `;
+                break;
+                
+            case 'INCONSISTENT_DOSIS':
+                messageText = `
+                    <div class="error-message">
+                        <div class="error-text">${validationResult.message}</div>
+                        <div class="error-details">
+                            <div class="detail-row">
+                                <span>Campo "Día":</span>
+                                <span class="detail-value">${validationResult.calculation.dailyDosis}</span>
+                            </div>
+                            <div class="detail-row">
+                                <span>Suma de horas:</span>
+                                <span class="detail-value">${validationResult.calculation.hourlyTotal}</span>
+                            </div>
+                            <div class="detail-breakdown">
+                                <div class="breakdown-title">Desglose por horas:</div>
+                                <div class="breakdown-items">
+                                    <span>7h: ${validationResult.calculation.hourlyDosis.h7}</span>
+                                    <span>8h: ${validationResult.calculation.hourlyDosis.h8}</span>
+                                    <span>13h: ${validationResult.calculation.hourlyDosis.h13}</span>
+                                    <span>18h: ${validationResult.calculation.hourlyDosis.h18}</span>
+                                    <span>21h: ${validationResult.calculation.hourlyDosis.h21}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="error-hint">Corrija uno de los dos valores para que coincidan.</div>
+                    </div>
+                `;
+                break;
+                
+            case 'TOTAL_MISMATCH':
+                messageText = `
+                    <div class="error-message">
+                        <div class="error-text">${validationResult.message}</div>
+                        <div class="calc-details">
+                            <div class="calc-row">
+                                <span class="calc-label">Días seleccionados:</span>
+                                <span class="calc-value">${validationResult.calculation.days}</span>
+                            </div>
+                            <div class="calc-row">
+                                <span class="calc-label">Dosis por día:</span>
+                                <span class="calc-value">${validationResult.calculation.dosisPerDay}</span>
+                            </div>
+                            <div class="calc-row calc-formula error-formula">
+                                <span class="calc-label">Cálculo correcto:</span>
+                                <span class="calc-value">${validationResult.calculation.days} × ${validationResult.calculation.dosisPerDay} = ${validationResult.calculation.weeklyTotal}</span>
+                            </div>
+                            <div class="calc-row error-input">
+                                <span class="calc-label">Total ingresado:</span>
+                                <span class="calc-value">${validationResult.inputTotal}</span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                break;
+        }
+    }
     
     showModal(title, messageText, statusClass);
+}
+
+// Función modificada para guardar con validación ESTRICTA
+function save_trata_with_validation(rid) {
+    const validationResult = validateWeeklyTotal();
+    
+    if (!validationResult.isValid) {
+        // Mostrar modal de error - NO permitir continuar
+        showValidationInfo(validationResult);
+        return false; // No continuar con el guardado
+    }
+    
+    // Si la validación es exitosa, mostrar mensaje de éxito breve y continuar
+    showSuccessAndProceed(rid, validationResult);
+    return true;
+}
+
+// Función para mostrar éxito y proceder
+function showSuccessAndProceed(rid, validationResult) {
+   save_trata(rid);
 }
 
 // Función para auto-calcular y rellenar el total semanal
 function autoCalculateTotal() {
     const calculation = calculateWeeklyTotal();
-    document.getElementById('total_tratamiento').value = calculation.weeklyTotal;
-    validateWeeklyTotal();
-}
-
-// Función modificada para guardar con validación
-function save_trata_with_validation(rid) {
-    if (!validateWeeklyTotal()) {
-        if (confirm('El total semanal no coincide con el cálculo automático. ¿Desea continuar de todos modos?')) {
-            save_trata(rid); // Llamar a la función original
-        }
-    } else {
-        save_trata(rid); // Llamar a la función original
+    
+    // Validar que hay datos suficientes
+    if (calculation.days === 0) {
+        showModal('⚠️ Información Faltante', 
+            '<div class="error-message"><div class="error-text">Debe seleccionar al menos un día de la semana antes de calcular.</div></div>', 
+            'error');
+        return;
     }
+    
+    if (calculation.dosisPerDay === 0) {
+        showModal('⚠️ Información Faltante', 
+            '<div class="error-message"><div class="error-text">Debe ingresar la dosis por día o configurar las horas individuales antes de calcular.</div></div>', 
+            'error');
+        return;
+    }
+    
+    // Calcular y asignar
+    document.getElementById('total_tratamiento').value = calculation.weeklyTotal;
+    
+    // Mostrar confirmación rápida
+    const autoModal = document.createElement('div');
+    autoModal.className = 'calc-modal info show quick-success';
+    autoModal.innerHTML = `
+        <div class="calc-modal-overlay">
+            <div class="calc-modal-content quick-content">
+                <div class="quick-success-content">
+                    <div class="success-icon-large">🧮</div>
+                    <div class="success-text-large">Calculado Automáticamente</div>
+                    <div class="success-details">Total: ${calculation.weeklyTotal}</div>
+                </div>
+            </div>
+        </div>
+    `;
+    
+    document.body.appendChild(autoModal);
+    
+    setTimeout(() => {
+        autoModal.remove();
+    }, 1500);
+    
+    // Actualizar estilos visuales
+    const totalField = document.getElementById('total_tratamiento');
+    totalField.classList.add('calc-valid');
+    totalField.classList.remove('calc-invalid');
 }
 
-// Función para crear y mostrar modales
+// Función para crear y mostrar modales (mantenida igual)
 function showModal(title, content, type = 'info') {
     // Remover modal existente si hay uno
     const existingModal = document.querySelector('.calc-modal');
@@ -318,19 +533,15 @@ function closeModal() {
     }
 }
 
-// Función para mostrar modal de validación en tiempo real (opcional)
+// Función para mostrar modal de validación manual
 function showQuickValidation() {
-    const calculation = calculateWeeklyTotal();
-    const inputTotal = parseFloat(document.getElementById('total_tratamiento').value) || 0;
-    const isValid = Math.abs(inputTotal - calculation.weeklyTotal) < 0.01;
-    
-    if (inputTotal > 0) { // Solo mostrar si hay algo en el campo total
-        showValidationInfo(calculation, inputTotal, isValid);
-    }
+    const validationResult = validateWeeklyTotal();
+    showValidationInfo(validationResult);
 }
+
 // Event listeners para validación en tiempo real
 document.addEventListener('DOMContentLoaded', function() {
-    // Agregar eventos a todos los campos relevantes (validación silenciosa)
+    // Agregar eventos a todos los campos relevantes
     const fieldsToWatch = [
         'input[name="days[]"]',
         'input[name="dia_tratamiento"]',
@@ -338,7 +549,8 @@ document.addEventListener('DOMContentLoaded', function() {
         'input[name="och_tratamiento"]',
         'input[name="trce_tratamiento"]',
         'input[name="dieco_tratamiento"]',
-        'input[name="vtuno_tratamiento"]'
+        'input[name="vtuno_tratamiento"]',
+        'input[name="total_tratamiento"]'
     ];
     
     fieldsToWatch.forEach(selector => {
@@ -346,15 +558,15 @@ document.addEventListener('DOMContentLoaded', function() {
         elements.forEach(element => {
             element.addEventListener('change', function() {
                 // Validación silenciosa para actualizar estilos
-                const calculation = calculateWeeklyTotal();
-                const inputTotal = parseFloat(document.getElementById('total_tratamiento').value) || 0;
-                const isValid = Math.abs(inputTotal - calculation.weeklyTotal) < 0.01;
+                const validationResult = validateWeeklyTotal();
                 
                 // Agregar clase visual al campo total
                 const totalField = document.getElementById('total_tratamiento');
+                const inputTotal = parseFloat(totalField.value) || 0;
+                
                 if (inputTotal > 0) {
-                    totalField.classList.toggle('calc-valid', isValid);
-                    totalField.classList.toggle('calc-invalid', !isValid);
+                    totalField.classList.toggle('calc-valid', validationResult.isValid);
+                    totalField.classList.toggle('calc-invalid', !validationResult.isValid);
                 } else {
                     totalField.classList.remove('calc-valid', 'calc-invalid');
                 }
@@ -362,18 +574,18 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
-    // Agregar botón de validación manual
+    // Agregar botones de validación
     const totalField = document.getElementById('total_tratamiento');
     if (totalField) {
         const validateBtn = document.createElement('button');
         validateBtn.type = 'button';
-        validateBtn.textContent = '🔍 Validar';
+        validateBtn.textContent = 'Validar';
         validateBtn.className = 'calc-validate-btn';
         validateBtn.onclick = showQuickValidation;
         
         const autoBtn = document.createElement('button');
         autoBtn.type = 'button';
-        autoBtn.textContent = '⚡ Auto';
+        autoBtn.textContent = 'Auto';
         autoBtn.className = 'calc-auto-btn';
         autoBtn.onclick = autoCalculateTotal;
         
@@ -392,43 +604,34 @@ function trquest() {
     const helpContent = `
         <div class="help-content">
             <div class="formula-section">
-                <h4>Cálculo</h4>
+                <h4Cálculo</h4>
                 <div class="formula-box">
                     <strong>Días seleccionados × Dosis por día = Total semanal</strong>
                 </div>
             </div>
             
             <div class="methods-section">
-                <h4>💊 Dosis por día puede ser:</h4>
+                <h4>Formas de especificar dosis por día:</h4>
                 <div class="method-item">
                     <span class="method-number">1</span>
-                    <span class="method-text">El valor del campo "Día"</span>
+                    <span class="method-text">Campo "Día": Un valor único para toda la dosis diaria</span>
                 </div>
                 <div class="method-item">
                     <span class="method-number">2</span>
-                    <span class="method-text">La suma de: 7h + 8h + 13h + 18h + 21h</span>
+                    <span class="method-text">Horas específicas: Suma de 7h + 8h + 13h + 18h + 21h</span>
+                </div>
+                <div class="method-item">
+                    <span class="method-number">⚠️</span>
+                    <span class="method-text"><strong>Importante:</strong> Si usa ambos métodos, deben coincidir exactamente</span>
                 </div>
             </div>
             
-            <div class="examples-section">
-                <h4>Ejemplos Prácticos</h4>
-                <div class="example-item">
-                    <div class="example-scenario">5 días (Lunes a Viernes) × 2 dosis por día</div>
-                    <div class="example-result">= 10 total semanal</div>
-                </div>
-                <div class="example-item">
-                    <div class="example-scenario">1 día × (0.25 + 0.25 + 0.25 + 0.25) dosis</div>
-                    <div class="example-result">= 1 total semanal</div>
-                </div>
-                <div class="example-item">
-                    <div class="example-scenario">7 días × 1.5 dosis por día</div>
-                    <div class="example-result">= 10.5 total semanal</div>
-                </div>
-            </div>
+           
+          
         </div>
     `;
     
-    showModal('Guía de Cálculo Semanal', helpContent, 'info');
+    showModal(' Guía de Cálculo de Tratamientos', helpContent, 'info');
 }
 
 </script>
@@ -563,7 +766,7 @@ function trquest() {
 }
 
 .calc-modal.info .calc-modal-header {
-    background: linear-gradient(135deg, #cce7ff, #b3d9ff);
+    background: linear-gradient(135deg, rgb(188,164,108), rgb(217,200,168));
     color: #004085;
 }
 
@@ -636,7 +839,7 @@ function trquest() {
 }
 
 .formula-box {
-    background: linear-gradient(135deg,rgb(102,24,28) 0%,rgb(185,51,78) 100%);
+    background: linear-gradient(135deg,rgb(188,164,108), rgb(217,200,168)  );
     color: white;
     padding: 15px;
     border-radius: 8px;
@@ -714,12 +917,12 @@ function trquest() {
 }
 
 .calc-validate-btn {
-    background: #17a2b8;
+    background: rgb(188,164,108);
     color: white;
 }
 
 .calc-validate-btn:hover {
-    background: #138496;
+    background: rgb(188,164,108);
     transform: translateY(-1px);
 }
 
@@ -774,4 +977,254 @@ function trquest() {
     .calc-btn-container {
         flex-direction: column;
     }
+    /* Mensajes de error mejorados */
+.error-message {
+    text-align: center;
+    padding: 20px;
+}
+
+.error-icon, .success-icon {
+    font-size: 3em;
+    margin-bottom: 15px;
+    display: block;
+}
+
+.error-text, .success-text {
+    font-size: 1.1em;
+    font-weight: 600;
+    margin-bottom: 15px;
+    color: #495057;
+}
+
+.error-hint {
+    background: #f8f9fa;
+    padding: 12px;
+    border-radius: 6px;
+    color: #6c757d;
+    font-size: 0.95em;
+    border-left: 4px solid #ffc107;
+    margin-top: 15px;
+}
+
+.error-details {
+    background: #fff3cd;
+    border: 1px solid #ffeaa7;
+    border-radius: 6px;
+    padding: 15px;
+    margin: 15px 0;
+}
+
+.detail-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 5px 0;
+    border-bottom: 1px solid #f1f3f5;
+}
+
+.detail-row:last-child {
+    border-bottom: none;
+}
+
+.detail-value {
+    font-weight: 600;
+    color: #dc3545;
+}
+
+.breakdown-title {
+    font-weight: 600;
+    margin: 10px 0 8px 0;
+    color: #495057;
+}
+
+.breakdown-items {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.breakdown-items span {
+    background: #e9ecef;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.85em;
+    color: #495057;
+}
+
+.error-formula {
+    background: #f8d7da !important;
+    border-color: #f5c6cb !important;
+}
+
+.error-input {
+    background: #fff5f5;
+    font-weight: 600;
+}
+
+.error-input .calc-value {
+    color: #dc3545;
+}
+
+/* Mensaje de éxito mejorado */
+.success-message {
+    text-align: center;
+    padding: 20px;
+}
+
+.success-icon {
+    color: #28a745;
+}
+
+/* Modal de éxito rápido */
+.quick-success {
+    z-index: 10001;
+}
+
+.quick-content {
+    max-width: 350px;
+    padding: 0;
+}
+
+.quick-success-content {
+    padding: 30px 20px;
+    text-align: center;
+}
+
+.success-icon-large {
+    font-size: 4em;
+    margin-bottom: 15px;
+    display: block;
+}
+
+.success-text-large {
+    font-size: 1.3em;
+    font-weight: 600;
+    color: #28a745;
+    margin-bottom: 10px;
+}
+
+.success-details {
+    color: #6c757d;
+    font-size: 0.95em;
+}
+
+/* Ejemplos con estado de error */
+.error-example .example-scenario {
+    color: #dc3545 !important;
+    font-weight: 600;
+}
+
+.error-example .example-result {
+    color: #dc3545 !important;
+    background: #f8d7da;
+    padding: 8px;
+    border-radius: 4px;
+}
+
+/* Sección de validaciones */
+.validation-section {
+    background: #f8f9fa;
+    padding: 15px;
+    border-radius: 6px;
+    margin-top: 20px;
+}
+
+.validation-section h4 {
+    margin-bottom: 15px;
+    color: #495057;
+}
+
+.validation-item {
+    padding: 5px 0;
+    color: #28a745;
+    font-weight: 500;
+}
+
+.validation-item::before {
+    content: '';
+    margin-right: 8px;
+}
+
+/* Animaciones mejoradas */
+@keyframes pulse-error {
+    0% { box-shadow: 0 0 0 0 rgba(220, 53, 69, 0.7); }
+    70% { box-shadow: 0 0 0 10px rgba(220, 53, 69, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(220, 53, 69, 0); }
+}
+
+@keyframes pulse-success {
+    0% { box-shadow: 0 0 0 0 rgba(40, 167, 69, 0.7); }
+    70% { box-shadow: 0 0 0 10px rgba(40, 167, 69, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(40, 167, 69, 0); }
+}
+
+.calc-invalid {
+    animation: pulse-error 1s;
+}
+
+.calc-valid {
+    animation: pulse-success 1s;
+}
+
+/* Botones mejorados */
+.calc-validate-btn:active,
+.calc-auto-btn:active {
+    transform: translateY(1px);
+}
+
+.calc-btn-container {
+    display: flex;
+    gap: 8px;
+    margin-top: 8px;
+}
+
+/* Tooltips para botones */
+.calc-validate-btn::after {
+    content: 'Verificar cálculos';
+    position: absolute;
+    bottom: -35px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #333;
+    color: white;
+    padding: 5px 8px;
+    border-radius: 4px;
+    font-size: 0.75em;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s;
+    z-index: 1000;
+}
+
+.calc-validate-btn:hover::after {
+    opacity: 1;
+}
+
+.calc-auto-btn::after {
+    content: 'Calcular automáticamente';
+    position: absolute;
+    bottom: -35px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #333;
+    color: white;
+    padding: 5px 8px;
+    border-radius: 4px;
+    font-size: 0.75em;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s;
+    z-index: 1000;
+}
+
+.calc-auto-btn:hover::after {
+    opacity: 1;
+}
+
+/* Posicionamiento relativo para tooltips */
+.calc-btn-container {
+    position: relative;
+}
+
 }</style>
