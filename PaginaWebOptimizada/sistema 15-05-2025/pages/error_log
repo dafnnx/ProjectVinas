@@ -1,0 +1,301 @@
+[06-May-2025 17:43:42 America/Mexico_City] PHP Warning:  Undefined variable $nidm in /home/connectm/syslasvinas.com/pages/plus_medica.php on line 61
+[06-May-2025 17:43:42 America/Mexico_City] PHP Warning:  Undefined variable $nidm in /home/connectm/syslasvinas.com/pages/plus_medica.php on line 76
+[06-May-2025 17:45:13 America/Mexico_City] PHP Warning:  Undefined variable $nidm in /home/connectm/syslasvinas.com/pages/plus_medica.php on line 61
+[06-May-2025 17:45:13 America/Mexico_City] PHP Warning:  Undefined variable $nidm in /home/connectm/syslasvinas.com/pages/plus_medica.php on line 76
+[06-May-2025 17:45:39 America/Mexico_City] PHP Warning:  Undefined variable $nidm in /home/connectm/syslasvinas.com/pages/plus_medica.php on line 61
+[06-May-2025 17:45:39 America/Mexico_City] PHP Warning:  Undefined variable $nidm in /home/connectm/syslasvinas.com/pages/plus_medica.php on line 76
+[07-May-2025 11:20:44 America/Mexico_City] PHP Notice:  Undefined variable: ires in /home/connectm/syslasvinas.com/pages/caja.php on line 29
+[07-May-2025 11:21:29 America/Mexico_City] PHP Notice:  Undefined variable: ires in /home/connectm/syslasvinas.com/pages/caja.php on line 29
+[07-May-2025 11:33:41 America/Mexico_City] PHP Notice:  Undefined variable: rid in /home/connectm/syslasvinas.com/pages/nfo2.php on line 3
+[07-May-2025 11:33:41 America/Mexico_City] PHP Notice:  Undefined variable: rid in /home/connectm/syslasvinas.com/pages/nfo2.php on line 4
+[07-May-2025 11:33:41 America/Mexico_City] PHP Notice:  Undefined variable: rid in /home/connectm/syslasvinas.com/pages/nfo2.php on line 5
+[07-May-2025 11:33:41 America/Mexico_City] PHP Notice:  Undefined variable: rid in /home/connectm/syslasvinas.com/pages/nfo4.php on line 5
+[07-May-2025 11:33:41 America/Mexico_City] PHP Notice:  Undefined variable: rid in /home/connectm/syslasvinas.com/pages/nfo4.php on line 45
+[07-May-2025 11:33:41 America/Mexico_City] PHP Notice:  Undefined variable: rid in /home/connectm/syslasvinas.com/pages/nfo5.php on line 5
+[07-May-2025 11:33:41 America/Mexico_City] PHP Notice:  Undefined variable: rid in /home/connectm/syslasvinas.com/pages/nfo5.php on line 6
+[07-May-2025 11:33:41 America/Mexico_City] PHP Warning:  require_once(funcs.php): failed to open stream: No such file or directory in /home/connectm/syslasvinas.com/pages/nfo5.php on line 119
+[07-May-2025 11:33:41 America/Mexico_City] PHP Fatal error:  require_once(): Failed opening required 'funcs.php' (include_path='.:/opt/alt/php72/usr/share/pear') in /home/connectm/syslasvinas.com/pages/nfo5.php on line 119
+[07-May-2025 11:58:23 America/Mexico_City] PHP Notice:  Undefined variable: ires in /home/connectm/syslasvinas.com/pages/caja.php on line 29
+[07-May-2025 12:15:15 America/Mexico_City] PHP Notice:  Undefined variable: ires in /home/connectm/syslasvinas.com/pages/caja.php on line 29
+[07-May-2025 12:18:04 America/Mexico_City] PHP Notice:  Undefined variable: ires in /home/connectm/syslasvinas.com/pages/caja.php on line 29
+[07-May-2025 12:20:22 America/Mexico_City] PHP Notice:  Undefined variable: ires in /home/connectm/syslasvinas.com/pages/caja.php on line 29
+[07-May-2025 12:41:02 America/Mexico_City] PHP Notice:  Undefined variable: ires in /home/connectm/syslasvinas.com/pages/caja.php on line 29
+[07-May-2025 12:41:28 America/Mexico_City] PHP Notice:  Undefined variable: ires in /home/connectm/syslasvinas.com/pages/caja.php on line 29
+[07-May-2025 12:43:32 America/Mexico_City] PHP Notice:  Undefined variable: ires in /home/connectm/syslasvinas.com/pages/caja.php on line 29
+[07-May-2025 12:44:09 America/Mexico_City] PHP Notice:  Undefined variable: ires in /home/connectm/syslasvinas.com/pages/caja.php on line 29
+[07-May-2025 13:19:54 America/Mexico_City] PHP Notice:  Undefined variable: ires in /home/connectm/syslasvinas.com/pages/caja.php on line 29
+[07-May-2025 13:20:22 America/Mexico_City] PHP Notice:  Undefined variable: ires in /home/connectm/syslasvinas.com/pages/caja.php on line 29
+[07-May-2025 13:50:58 America/Mexico_City] PHP Notice:  Undefined variable: nidm in /home/connectm/syslasvinas.com/pages/plus_medica.php on line 61
+[07-May-2025 13:50:58 America/Mexico_City] PHP Notice:  Undefined variable: nidm in /home/connectm/syslasvinas.com/pages/plus_medica.php on line 76
+[07-May-2025 13:53:03 America/Mexico_City] PHP Notice:  Undefined variable: nidm in /home/connectm/syslasvinas.com/pages/plus_medica.php on line 61
+[07-May-2025 13:53:03 America/Mexico_City] PHP Notice:  Undefined variable: nidm in /home/connectm/syslasvinas.com/pages/plus_medica.php on line 76
+[07-May-2025 14:32:19 America/Mexico_City] PHP Notice:  Undefined variable: nidm in /home/connectm/syslasvinas.com/pages/plus_medica.php on line 61
+[07-May-2025 14:32:19 America/Mexico_City] PHP Notice:  Undefined variable: nidm in /home/connectm/syslasvinas.com/pages/plus_medica.php on line 76
+[07-May-2025 14:32:51 America/Mexico_City] PHP Notice:  Undefined variable: nidm in /home/connectm/syslasvinas.com/pages/plus_medica.php on line 61
+[07-May-2025 14:32:51 America/Mexico_City] PHP Notice:  Undefined variable: nidm in /home/connectm/syslasvinas.com/pages/plus_medica.php on line 76
+[07-May-2025 15:14:38 America/Mexico_City] PHP Notice:  Undefined variable: ires in /home/connectm/syslasvinas.com/pages/caja.php on line 29
+[07-May-2025 15:56:21 America/Mexico_City] PHP Notice:  Undefined variable: rid in /home/connectm/syslasvinas.com/pages/nfo2.php on line 3
+[07-May-2025 15:56:21 America/Mexico_City] PHP Notice:  Undefined variable: rid in /home/connectm/syslasvinas.com/pages/nfo2.php on line 4
+[07-May-2025 15:56:21 America/Mexico_City] PHP Notice:  Undefined variable: rid in /home/connectm/syslasvinas.com/pages/nfo2.php on line 5
+[07-May-2025 15:56:21 America/Mexico_City] PHP Notice:  Undefined variable: rid in /home/connectm/syslasvinas.com/pages/nfo4.php on line 5
+[07-May-2025 15:56:21 America/Mexico_City] PHP Notice:  Undefined variable: rid in /home/connectm/syslasvinas.com/pages/nfo4.php on line 45
+[07-May-2025 15:56:21 America/Mexico_City] PHP Notice:  Undefined variable: rid in /home/connectm/syslasvinas.com/pages/nfo5.php on line 5
+[07-May-2025 15:56:21 America/Mexico_City] PHP Notice:  Undefined variable: rid in /home/connectm/syslasvinas.com/pages/nfo5.php on line 6
+[07-May-2025 15:56:21 America/Mexico_City] PHP Warning:  require_once(funcs.php): failed to open stream: No such file or directory in /home/connectm/syslasvinas.com/pages/nfo5.php on line 119
+[07-May-2025 15:56:21 America/Mexico_City] PHP Fatal error:  require_once(): Failed opening required 'funcs.php' (include_path='.:/opt/alt/php72/usr/share/pear') in /home/connectm/syslasvinas.com/pages/nfo5.php on line 119
+[07-May-2025 15:57:48 America/Mexico_City] PHP Notice:  Undefined variable: rid in /home/connectm/syslasvinas.com/pages/nfo2.php on line 3
+[07-May-2025 15:57:48 America/Mexico_City] PHP Notice:  Undefined variable: rid in /home/connectm/syslasvinas.com/pages/nfo2.php on line 4
+[07-May-2025 15:57:48 America/Mexico_City] PHP Notice:  Undefined variable: rid in /home/connectm/syslasvinas.com/pages/nfo2.php on line 5
+[07-May-2025 15:57:48 America/Mexico_City] PHP Notice:  Undefined variable: rid in /home/connectm/syslasvinas.com/pages/nfo4.php on line 5
+[07-May-2025 15:57:48 America/Mexico_City] PHP Notice:  Undefined variable: rid in /home/connectm/syslasvinas.com/pages/nfo4.php on line 45
+[07-May-2025 15:57:48 America/Mexico_City] PHP Notice:  Undefined variable: rid in /home/connectm/syslasvinas.com/pages/nfo5.php on line 5
+[07-May-2025 15:57:48 America/Mexico_City] PHP Notice:  Undefined variable: rid in /home/connectm/syslasvinas.com/pages/nfo5.php on line 6
+[07-May-2025 15:57:48 America/Mexico_City] PHP Warning:  require_once(funcs.php): failed to open stream: No such file or directory in /home/connectm/syslasvinas.com/pages/nfo5.php on line 119
+[07-May-2025 15:57:48 America/Mexico_City] PHP Fatal error:  require_once(): Failed opening required 'funcs.php' (include_path='.:/opt/alt/php72/usr/share/pear') in /home/connectm/syslasvinas.com/pages/nfo5.php on line 119
+[07-May-2025 15:59:18 America/Mexico_City] PHP Notice:  Undefined variable: rid in /home/connectm/syslasvinas.com/pages/nfo2.php on line 3
+[07-May-2025 15:59:18 America/Mexico_City] PHP Notice:  Undefined variable: rid in /home/connectm/syslasvinas.com/pages/nfo2.php on line 4
+[07-May-2025 15:59:18 America/Mexico_City] PHP Notice:  Undefined variable: rid in /home/connectm/syslasvinas.com/pages/nfo2.php on line 5
+[07-May-2025 15:59:18 America/Mexico_City] PHP Notice:  Undefined variable: rid in /home/connectm/syslasvinas.com/pages/nfo4.php on line 5
+[07-May-2025 15:59:18 America/Mexico_City] PHP Notice:  Undefined variable: rid in /home/connectm/syslasvinas.com/pages/nfo4.php on line 45
+[07-May-2025 15:59:18 America/Mexico_City] PHP Notice:  Undefined variable: rid in /home/connectm/syslasvinas.com/pages/nfo5.php on line 5
+[07-May-2025 15:59:18 America/Mexico_City] PHP Notice:  Undefined variable: rid in /home/connectm/syslasvinas.com/pages/nfo5.php on line 6
+[07-May-2025 15:59:18 America/Mexico_City] PHP Warning:  require_once(funcs.php): failed to open stream: No such file or directory in /home/connectm/syslasvinas.com/pages/nfo5.php on line 119
+[07-May-2025 15:59:18 America/Mexico_City] PHP Fatal error:  require_once(): Failed opening required 'funcs.php' (include_path='.:/opt/alt/php72/usr/share/pear') in /home/connectm/syslasvinas.com/pages/nfo5.php on line 119
+[07-May-2025 17:40:57 America/Mexico_City] PHP Notice:  Undefined variable: rid in /home/connectm/syslasvinas.com/pages/nfo2.php on line 3
+[07-May-2025 17:40:57 America/Mexico_City] PHP Notice:  Undefined variable: rid in /home/connectm/syslasvinas.com/pages/nfo2.php on line 4
+[07-May-2025 17:40:57 America/Mexico_City] PHP Notice:  Undefined variable: rid in /home/connectm/syslasvinas.com/pages/nfo2.php on line 5
+[07-May-2025 17:40:57 America/Mexico_City] PHP Notice:  Undefined variable: rid in /home/connectm/syslasvinas.com/pages/nfo4.php on line 5
+[07-May-2025 17:40:57 America/Mexico_City] PHP Notice:  Undefined variable: rid in /home/connectm/syslasvinas.com/pages/nfo4.php on line 45
+[07-May-2025 17:40:57 America/Mexico_City] PHP Notice:  Undefined variable: rid in /home/connectm/syslasvinas.com/pages/nfo5.php on line 5
+[07-May-2025 17:40:57 America/Mexico_City] PHP Notice:  Undefined variable: rid in /home/connectm/syslasvinas.com/pages/nfo5.php on line 6
+[07-May-2025 17:40:57 America/Mexico_City] PHP Warning:  require_once(funcs.php): failed to open stream: No such file or directory in /home/connectm/syslasvinas.com/pages/nfo5.php on line 119
+[07-May-2025 17:40:57 America/Mexico_City] PHP Fatal error:  require_once(): Failed opening required 'funcs.php' (include_path='.:/opt/alt/php72/usr/share/pear') in /home/connectm/syslasvinas.com/pages/nfo5.php on line 119
+[07-May-2025 19:56:01 America/Mexico_City] PHP Notice:  Undefined variable: nidm in /home/connectm/syslasvinas.com/pages/plus_medica.php on line 61
+[07-May-2025 19:56:01 America/Mexico_City] PHP Notice:  Undefined variable: nidm in /home/connectm/syslasvinas.com/pages/plus_medica.php on line 76
+[07-May-2025 20:40:06 America/Mexico_City] PHP Notice:  Undefined variable: rid in /home/connectm/syslasvinas.com/pages/nfo2.php on line 3
+[07-May-2025 20:40:06 America/Mexico_City] PHP Notice:  Undefined variable: rid in /home/connectm/syslasvinas.com/pages/nfo2.php on line 4
+[07-May-2025 20:40:06 America/Mexico_City] PHP Notice:  Undefined variable: rid in /home/connectm/syslasvinas.com/pages/nfo2.php on line 5
+[07-May-2025 20:40:06 America/Mexico_City] PHP Notice:  Undefined variable: rid in /home/connectm/syslasvinas.com/pages/nfo4.php on line 5
+[07-May-2025 20:40:06 America/Mexico_City] PHP Notice:  Undefined variable: rid in /home/connectm/syslasvinas.com/pages/nfo4.php on line 45
+[07-May-2025 20:40:06 America/Mexico_City] PHP Notice:  Undefined variable: rid in /home/connectm/syslasvinas.com/pages/nfo5.php on line 5
+[07-May-2025 20:40:06 America/Mexico_City] PHP Notice:  Undefined variable: rid in /home/connectm/syslasvinas.com/pages/nfo5.php on line 6
+[07-May-2025 20:40:06 America/Mexico_City] PHP Warning:  require_once(funcs.php): failed to open stream: No such file or directory in /home/connectm/syslasvinas.com/pages/nfo5.php on line 119
+[07-May-2025 20:40:06 America/Mexico_City] PHP Fatal error:  require_once(): Failed opening required 'funcs.php' (include_path='.:/opt/alt/php72/usr/share/pear') in /home/connectm/syslasvinas.com/pages/nfo5.php on line 119
+[07-May-2025 20:40:14 America/Mexico_City] PHP Warning:  include(modal_help.php): failed to open stream: No such file or directory in /home/connectm/syslasvinas.com/pages/medico.php on line 21
+[07-May-2025 20:40:14 America/Mexico_City] PHP Warning:  include(modal_help.php): failed to open stream: No such file or directory in /home/connectm/syslasvinas.com/pages/medico.php on line 21
+[07-May-2025 20:40:14 America/Mexico_City] PHP Warning:  include(): Failed opening 'modal_help.php' for inclusion (include_path='.:/opt/alt/php72/usr/share/pear') in /home/connectm/syslasvinas.com/pages/medico.php on line 21
+[07-May-2025 22:04:47 America/Mexico_City] PHP Warning:  require_once(../quotes11.php): failed to open stream: No such file or directory in /home/connectm/syslasvinas.com/pages/prospectos.php on line 25
+[07-May-2025 22:04:47 America/Mexico_City] PHP Fatal error:  require_once(): Failed opening required '../quotes11.php' (include_path='.:/opt/alt/php72/usr/share/pear') in /home/connectm/syslasvinas.com/pages/prospectos.php on line 25
+[07-May-2025 22:05:08 America/Mexico_City] PHP Warning:  require_once(../quotes11.php): failed to open stream: No such file or directory in /home/connectm/syslasvinas.com/pages/prospectos.php on line 25
+[07-May-2025 22:05:08 America/Mexico_City] PHP Fatal error:  require_once(): Failed opening required '../quotes11.php' (include_path='.:/opt/alt/php72/usr/share/pear') in /home/connectm/syslasvinas.com/pages/prospectos.php on line 25
+[07-May-2025 22:06:11 America/Mexico_City] PHP Warning:  include(modal_help.php): failed to open stream: No such file or directory in /home/connectm/syslasvinas.com/pages/medico.php on line 21
+[07-May-2025 22:06:11 America/Mexico_City] PHP Warning:  include(modal_help.php): failed to open stream: No such file or directory in /home/connectm/syslasvinas.com/pages/medico.php on line 21
+[07-May-2025 22:06:11 America/Mexico_City] PHP Warning:  include(): Failed opening 'modal_help.php' for inclusion (include_path='.:/opt/alt/php72/usr/share/pear') in /home/connectm/syslasvinas.com/pages/medico.php on line 21
+[08-May-2025 06:47:48 America/Mexico_City] PHP Warning:  require_once(../quotes11.php): failed to open stream: No such file or directory in /home/connectm/syslasvinas.com/pages/prospectos.php on line 25
+[08-May-2025 06:47:48 America/Mexico_City] PHP Fatal error:  require_once(): Failed opening required '../quotes11.php' (include_path='.:/opt/alt/php72/usr/share/pear') in /home/connectm/syslasvinas.com/pages/prospectos.php on line 25
+[08-May-2025 06:48:00 America/Mexico_City] PHP Warning:  require_once(../quotes11.php): failed to open stream: No such file or directory in /home/connectm/syslasvinas.com/pages/prospectos.php on line 25
+[08-May-2025 06:48:00 America/Mexico_City] PHP Fatal error:  require_once(): Failed opening required '../quotes11.php' (include_path='.:/opt/alt/php72/usr/share/pear') in /home/connectm/syslasvinas.com/pages/prospectos.php on line 25
+[08-May-2025 10:37:28 America/Mexico_City] PHP Notice:  Undefined variable: rid in /home/connectm/syslasvinas.com/pages/nfo2.php on line 3
+[08-May-2025 10:37:28 America/Mexico_City] PHP Notice:  Undefined variable: rid in /home/connectm/syslasvinas.com/pages/nfo2.php on line 4
+[08-May-2025 10:37:28 America/Mexico_City] PHP Notice:  Undefined variable: rid in /home/connectm/syslasvinas.com/pages/nfo2.php on line 5
+[08-May-2025 10:37:28 America/Mexico_City] PHP Notice:  Undefined variable: rid in /home/connectm/syslasvinas.com/pages/nfo4.php on line 5
+[08-May-2025 10:37:28 America/Mexico_City] PHP Notice:  Undefined variable: rid in /home/connectm/syslasvinas.com/pages/nfo4.php on line 45
+[08-May-2025 10:37:28 America/Mexico_City] PHP Notice:  Undefined variable: rid in /home/connectm/syslasvinas.com/pages/nfo5.php on line 5
+[08-May-2025 10:37:28 America/Mexico_City] PHP Notice:  Undefined variable: rid in /home/connectm/syslasvinas.com/pages/nfo5.php on line 6
+[08-May-2025 10:37:28 America/Mexico_City] PHP Warning:  require_once(funcs.php): failed to open stream: No such file or directory in /home/connectm/syslasvinas.com/pages/nfo5.php on line 119
+[08-May-2025 10:37:28 America/Mexico_City] PHP Fatal error:  require_once(): Failed opening required 'funcs.php' (include_path='.:/opt/alt/php72/usr/share/pear') in /home/connectm/syslasvinas.com/pages/nfo5.php on line 119
+[08-May-2025 10:37:41 America/Mexico_City] PHP Notice:  Undefined variable: rid in /home/connectm/syslasvinas.com/pages/nfo2.php on line 3
+[08-May-2025 10:37:41 America/Mexico_City] PHP Notice:  Undefined variable: rid in /home/connectm/syslasvinas.com/pages/nfo2.php on line 4
+[08-May-2025 10:37:41 America/Mexico_City] PHP Notice:  Undefined variable: rid in /home/connectm/syslasvinas.com/pages/nfo2.php on line 5
+[08-May-2025 10:37:41 America/Mexico_City] PHP Notice:  Undefined variable: rid in /home/connectm/syslasvinas.com/pages/nfo4.php on line 5
+[08-May-2025 10:37:41 America/Mexico_City] PHP Notice:  Undefined variable: rid in /home/connectm/syslasvinas.com/pages/nfo4.php on line 45
+[08-May-2025 10:37:41 America/Mexico_City] PHP Notice:  Undefined variable: rid in /home/connectm/syslasvinas.com/pages/nfo5.php on line 5
+[08-May-2025 10:37:41 America/Mexico_City] PHP Notice:  Undefined variable: rid in /home/connectm/syslasvinas.com/pages/nfo5.php on line 6
+[08-May-2025 10:37:41 America/Mexico_City] PHP Warning:  require_once(funcs.php): failed to open stream: No such file or directory in /home/connectm/syslasvinas.com/pages/nfo5.php on line 119
+[08-May-2025 10:37:41 America/Mexico_City] PHP Fatal error:  require_once(): Failed opening required 'funcs.php' (include_path='.:/opt/alt/php72/usr/share/pear') in /home/connectm/syslasvinas.com/pages/nfo5.php on line 119
+[08-May-2025 12:34:03 America/Mexico_City] PHP Notice:  Undefined variable: ires in /home/connectm/syslasvinas.com/pages/caja.php on line 29
+[08-May-2025 12:55:18 America/Mexico_City] PHP Notice:  Undefined variable: ires in /home/connectm/syslasvinas.com/pages/caja.php on line 29
+[08-May-2025 12:55:39 America/Mexico_City] PHP Notice:  Undefined variable: ires in /home/connectm/syslasvinas.com/pages/caja.php on line 29
+[08-May-2025 12:56:21 America/Mexico_City] PHP Notice:  Undefined variable: ires in /home/connectm/syslasvinas.com/pages/caja.php on line 29
+[08-May-2025 13:01:31 America/Mexico_City] PHP Notice:  Undefined variable: nidm in /home/connectm/syslasvinas.com/pages/plus_medica.php on line 61
+[08-May-2025 13:01:31 America/Mexico_City] PHP Notice:  Undefined variable: nidm in /home/connectm/syslasvinas.com/pages/plus_medica.php on line 76
+[08-May-2025 13:09:27 America/Mexico_City] PHP Notice:  Undefined variable: ires in /home/connectm/syslasvinas.com/pages/caja.php on line 29
+[08-May-2025 14:29:15 America/Mexico_City] PHP Notice:  Undefined variable: ires in /home/connectm/syslasvinas.com/pages/caja.php on line 29
+[08-May-2025 15:25:37 America/Mexico_City] PHP Notice:  Undefined index: perid in /home/connectm/syslasvinas.com/pages/personal.php on line 2
+[08-May-2025 15:25:37 America/Mexico_City] PHP Notice:  Undefined variable: ppersonal in /home/connectm/syslasvinas.com/quotes4.php on line 7
+[08-May-2025 15:51:30 America/Mexico_City] PHP Notice:  Undefined variable: ires in /home/connectm/syslasvinas.com/pages/caja.php on line 29
+[08-May-2025 15:52:05 America/Mexico_City] PHP Notice:  Undefined variable: ires in /home/connectm/syslasvinas.com/pages/caja.php on line 29
+[08-May-2025 15:53:09 America/Mexico_City] PHP Notice:  Undefined variable: ires in /home/connectm/syslasvinas.com/pages/caja.php on line 29
+[08-May-2025 15:54:17 America/Mexico_City] PHP Notice:  Undefined variable: ires in /home/connectm/syslasvinas.com/pages/caja.php on line 29
+[08-May-2025 15:54:25 America/Mexico_City] PHP Notice:  Undefined variable: ires in /home/connectm/syslasvinas.com/pages/caja.php on line 29
+[08-May-2025 15:54:58 America/Mexico_City] PHP Notice:  Undefined variable: ires in /home/connectm/syslasvinas.com/pages/caja.php on line 29
+[08-May-2025 15:57:50 America/Mexico_City] PHP Notice:  Undefined variable: ires in /home/connectm/syslasvinas.com/pages/caja.php on line 29
+[08-May-2025 15:58:22 America/Mexico_City] PHP Notice:  Undefined variable: ires in /home/connectm/syslasvinas.com/pages/caja.php on line 29
+[08-May-2025 15:58:25 America/Mexico_City] PHP Notice:  Undefined variable: ires in /home/connectm/syslasvinas.com/pages/caja.php on line 29
+[08-May-2025 16:01:09 America/Mexico_City] PHP Notice:  Undefined variable: ires in /home/connectm/syslasvinas.com/pages/caja.php on line 29
+[08-May-2025 16:01:42 America/Mexico_City] PHP Notice:  Undefined variable: ires in /home/connectm/syslasvinas.com/pages/caja.php on line 29
+[08-May-2025 16:02:35 America/Mexico_City] PHP Notice:  Undefined variable: ires in /home/connectm/syslasvinas.com/pages/caja.php on line 29
+[08-May-2025 16:09:23 America/Mexico_City] PHP Notice:  Undefined variable: ires in /home/connectm/syslasvinas.com/pages/caja.php on line 29
+[08-May-2025 16:09:34 America/Mexico_City] PHP Notice:  Undefined variable: ires in /home/connectm/syslasvinas.com/pages/caja.php on line 29
+[08-May-2025 16:09:50 America/Mexico_City] PHP Notice:  Undefined variable: ires in /home/connectm/syslasvinas.com/pages/caja.php on line 29
+[08-May-2025 16:10:10 America/Mexico_City] PHP Notice:  Undefined variable: ires in /home/connectm/syslasvinas.com/pages/caja.php on line 29
+[08-May-2025 16:10:28 America/Mexico_City] PHP Notice:  Undefined variable: ires in /home/connectm/syslasvinas.com/pages/caja.php on line 29
+[08-May-2025 16:38:34 America/Mexico_City] PHP Warning:  include(modal_help.php): failed to open stream: No such file or directory in /home/connectm/syslasvinas.com/pages/medico.php on line 21
+[08-May-2025 16:38:34 America/Mexico_City] PHP Warning:  include(modal_help.php): failed to open stream: No such file or directory in /home/connectm/syslasvinas.com/pages/medico.php on line 21
+[08-May-2025 16:38:34 America/Mexico_City] PHP Warning:  include(): Failed opening 'modal_help.php' for inclusion (include_path='.:/opt/alt/php72/usr/share/pear') in /home/connectm/syslasvinas.com/pages/medico.php on line 21
+[08-May-2025 16:50:34 America/Mexico_City] PHP Notice:  Undefined variable: ires in /home/connectm/syslasvinas.com/pages/caja.php on line 29
+[08-May-2025 16:51:27 America/Mexico_City] PHP Notice:  Undefined variable: ires in /home/connectm/syslasvinas.com/pages/caja.php on line 29
+[08-May-2025 16:52:55 America/Mexico_City] PHP Notice:  Undefined variable: ires in /home/connectm/syslasvinas.com/pages/caja.php on line 29
+[08-May-2025 16:59:30 America/Mexico_City] PHP Notice:  Undefined variable: ires in /home/connectm/syslasvinas.com/pages/caja.php on line 29
+[08-May-2025 17:00:32 America/Mexico_City] PHP Notice:  Undefined variable: ires in /home/connectm/syslasvinas.com/pages/caja.php on line 29
+[08-May-2025 19:15:03 America/Mexico_City] PHP Warning:  include(modal_help.php): failed to open stream: No such file or directory in /home/connectm/syslasvinas.com/pages/medico.php on line 21
+[08-May-2025 19:15:03 America/Mexico_City] PHP Warning:  include(modal_help.php): failed to open stream: No such file or directory in /home/connectm/syslasvinas.com/pages/medico.php on line 21
+[08-May-2025 19:15:03 America/Mexico_City] PHP Warning:  include(): Failed opening 'modal_help.php' for inclusion (include_path='.:/opt/alt/php72/usr/share/pear') in /home/connectm/syslasvinas.com/pages/medico.php on line 21
+[08-May-2025 19:35:13 America/Mexico_City] PHP Warning:  include(modal_help.php): failed to open stream: No such file or directory in /home/connectm/syslasvinas.com/pages/medico.php on line 21
+[08-May-2025 19:35:13 America/Mexico_City] PHP Warning:  include(modal_help.php): failed to open stream: No such file or directory in /home/connectm/syslasvinas.com/pages/medico.php on line 21
+[08-May-2025 19:35:13 America/Mexico_City] PHP Warning:  include(): Failed opening 'modal_help.php' for inclusion (include_path='.:/opt/alt/php72/usr/share/pear') in /home/connectm/syslasvinas.com/pages/medico.php on line 21
+[08-May-2025 19:36:29 America/Mexico_City] PHP Warning:  include(modal_help.php): failed to open stream: No such file or directory in /home/connectm/syslasvinas.com/pages/medico.php on line 21
+[08-May-2025 19:36:29 America/Mexico_City] PHP Warning:  include(modal_help.php): failed to open stream: No such file or directory in /home/connectm/syslasvinas.com/pages/medico.php on line 21
+[08-May-2025 19:36:29 America/Mexico_City] PHP Warning:  include(): Failed opening 'modal_help.php' for inclusion (include_path='.:/opt/alt/php72/usr/share/pear') in /home/connectm/syslasvinas.com/pages/medico.php on line 21
+[08-May-2025 21:53:31 America/Mexico_City] PHP Warning:  include(modal_help.php): failed to open stream: No such file or directory in /home/connectm/syslasvinas.com/pages/medico.php on line 21
+[08-May-2025 21:53:31 America/Mexico_City] PHP Warning:  include(modal_help.php): failed to open stream: No such file or directory in /home/connectm/syslasvinas.com/pages/medico.php on line 21
+[08-May-2025 21:53:31 America/Mexico_City] PHP Warning:  include(): Failed opening 'modal_help.php' for inclusion (include_path='.:/opt/alt/php72/usr/share/pear') in /home/connectm/syslasvinas.com/pages/medico.php on line 21
+[08-May-2025 21:55:23 America/Mexico_City] PHP Warning:  include(modal_help.php): failed to open stream: No such file or directory in /home/connectm/syslasvinas.com/pages/medico.php on line 21
+[08-May-2025 21:55:23 America/Mexico_City] PHP Warning:  include(modal_help.php): failed to open stream: No such file or directory in /home/connectm/syslasvinas.com/pages/medico.php on line 21
+[08-May-2025 21:55:23 America/Mexico_City] PHP Warning:  include(): Failed opening 'modal_help.php' for inclusion (include_path='.:/opt/alt/php72/usr/share/pear') in /home/connectm/syslasvinas.com/pages/medico.php on line 21
+[09-May-2025 11:44:38 America/Mexico_City] PHP Notice:  Undefined variable: ires in /home/connectm/syslasvinas.com/pages/caja.php on line 29
+[09-May-2025 11:49:36 America/Mexico_City] PHP Notice:  Undefined variable: ires in /home/connectm/syslasvinas.com/pages/caja.php on line 29
+[09-May-2025 11:49:43 America/Mexico_City] PHP Notice:  Undefined variable: ires in /home/connectm/syslasvinas.com/pages/caja.php on line 29
+[09-May-2025 11:50:02 America/Mexico_City] PHP Notice:  Undefined variable: ires in /home/connectm/syslasvinas.com/pages/caja.php on line 29
+[09-May-2025 11:50:44 America/Mexico_City] PHP Notice:  Undefined variable: ires in /home/connectm/syslasvinas.com/pages/caja.php on line 29
+[09-May-2025 12:40:47 America/Mexico_City] PHP Warning:  include(modal_help.php): failed to open stream: No such file or directory in /home/connectm/syslasvinas.com/pages/medico.php on line 21
+[09-May-2025 12:40:47 America/Mexico_City] PHP Warning:  include(modal_help.php): failed to open stream: No such file or directory in /home/connectm/syslasvinas.com/pages/medico.php on line 21
+[09-May-2025 12:40:47 America/Mexico_City] PHP Warning:  include(): Failed opening 'modal_help.php' for inclusion (include_path='.:/opt/alt/php72/usr/share/pear') in /home/connectm/syslasvinas.com/pages/medico.php on line 21
+[09-May-2025 13:04:15 America/Mexico_City] PHP Warning:  include(modal_help.php): failed to open stream: No such file or directory in /home/connectm/syslasvinas.com/pages/medico.php on line 21
+[09-May-2025 13:04:15 America/Mexico_City] PHP Warning:  include(modal_help.php): failed to open stream: No such file or directory in /home/connectm/syslasvinas.com/pages/medico.php on line 21
+[09-May-2025 13:04:15 America/Mexico_City] PHP Warning:  include(): Failed opening 'modal_help.php' for inclusion (include_path='.:/opt/alt/php72/usr/share/pear') in /home/connectm/syslasvinas.com/pages/medico.php on line 21
+[09-May-2025 13:10:59 America/Mexico_City] PHP Notice:  Undefined variable: ires in /home/connectm/syslasvinas.com/pages/caja.php on line 29
+[09-May-2025 13:11:35 America/Mexico_City] PHP Notice:  Undefined variable: ires in /home/connectm/syslasvinas.com/pages/caja.php on line 29
+[09-May-2025 13:34:45 America/Mexico_City] PHP Notice:  Undefined variable: ires in /home/connectm/syslasvinas.com/pages/caja.php on line 29
+[09-May-2025 14:36:19 America/Mexico_City] PHP Warning:  require_once(../quotes11.php): failed to open stream: No such file or directory in /home/connectm/syslasvinas.com/pages/prospectos.php on line 25
+[09-May-2025 14:36:19 America/Mexico_City] PHP Fatal error:  require_once(): Failed opening required '../quotes11.php' (include_path='.:/opt/alt/php72/usr/share/pear') in /home/connectm/syslasvinas.com/pages/prospectos.php on line 25
+[09-May-2025 15:28:17 America/Mexico_City] PHP Notice:  Undefined variable: ires in /home/connectm/syslasvinas.com/pages/caja.php on line 29
+[09-May-2025 15:28:37 America/Mexico_City] PHP Notice:  Undefined variable: ires in /home/connectm/syslasvinas.com/pages/caja.php on line 29
+[10-May-2025 11:41:31 America/Mexico_City] PHP Notice:  Undefined variable: nidm in /home/connectm/syslasvinas.com/pages/plus_medica.php on line 61
+[10-May-2025 11:41:31 America/Mexico_City] PHP Notice:  Undefined variable: nidm in /home/connectm/syslasvinas.com/pages/plus_medica.php on line 76
+[10-May-2025 11:47:05 America/Mexico_City] PHP Notice:  Undefined variable: nidm in /home/connectm/syslasvinas.com/pages/plus_medica.php on line 61
+[10-May-2025 11:47:05 America/Mexico_City] PHP Notice:  Undefined variable: nidm in /home/connectm/syslasvinas.com/pages/plus_medica.php on line 76
+[10-May-2025 12:02:04 America/Mexico_City] PHP Notice:  Undefined variable: ires in /home/connectm/syslasvinas.com/pages/caja.php on line 29
+[10-May-2025 13:24:50 America/Mexico_City] PHP Notice:  Undefined variable: ires in /home/connectm/syslasvinas.com/pages/caja.php on line 29
+[10-May-2025 13:30:06 America/Mexico_City] PHP Notice:  Undefined variable: ires in /home/connectm/syslasvinas.com/pages/caja.php on line 29
+[11-May-2025 23:32:42 America/Mexico_City] PHP Notice:  Undefined variable: rid in /home/connectm/syslasvinas.com/pages/nfo2.php on line 3
+[11-May-2025 23:32:42 America/Mexico_City] PHP Notice:  Undefined variable: rid in /home/connectm/syslasvinas.com/pages/nfo2.php on line 4
+[11-May-2025 23:32:42 America/Mexico_City] PHP Notice:  Undefined variable: rid in /home/connectm/syslasvinas.com/pages/nfo2.php on line 5
+[11-May-2025 23:32:43 America/Mexico_City] PHP Notice:  Undefined variable: rid in /home/connectm/syslasvinas.com/pages/nfo4.php on line 5
+[11-May-2025 23:32:43 America/Mexico_City] PHP Notice:  Undefined variable: rid in /home/connectm/syslasvinas.com/pages/nfo4.php on line 45
+[11-May-2025 23:32:43 America/Mexico_City] PHP Notice:  Undefined variable: rid in /home/connectm/syslasvinas.com/pages/nfo5.php on line 5
+[11-May-2025 23:32:43 America/Mexico_City] PHP Notice:  Undefined variable: rid in /home/connectm/syslasvinas.com/pages/nfo5.php on line 6
+[11-May-2025 23:32:43 America/Mexico_City] PHP Warning:  require_once(funcs.php): failed to open stream: No such file or directory in /home/connectm/syslasvinas.com/pages/nfo5.php on line 119
+[11-May-2025 23:32:43 America/Mexico_City] PHP Fatal error:  require_once(): Failed opening required 'funcs.php' (include_path='.:/opt/alt/php72/usr/share/pear') in /home/connectm/syslasvinas.com/pages/nfo5.php on line 119
+[12-May-2025 12:35:04 America/Mexico_City] PHP Notice:  Undefined variable: ires in /home/connectm/syslasvinas.com/pages/caja.php on line 29
+[12-May-2025 12:41:25 America/Mexico_City] PHP Notice:  Undefined variable: ires in /home/connectm/syslasvinas.com/pages/caja.php on line 29
+[12-May-2025 12:43:52 America/Mexico_City] PHP Notice:  Undefined variable: ires in /home/connectm/syslasvinas.com/pages/caja.php on line 29
+[12-May-2025 12:44:02 America/Mexico_City] PHP Notice:  Undefined variable: ires in /home/connectm/syslasvinas.com/pages/caja.php on line 29
+[12-May-2025 12:46:58 America/Mexico_City] PHP Notice:  Undefined variable: ires in /home/connectm/syslasvinas.com/pages/caja.php on line 29
+[12-May-2025 12:47:51 America/Mexico_City] PHP Notice:  Undefined variable: ires in /home/connectm/syslasvinas.com/pages/caja.php on line 29
+[12-May-2025 12:48:08 America/Mexico_City] PHP Notice:  Undefined variable: ires in /home/connectm/syslasvinas.com/pages/caja.php on line 29
+[12-May-2025 12:48:35 America/Mexico_City] PHP Notice:  Undefined variable: ires in /home/connectm/syslasvinas.com/pages/caja.php on line 29
+[12-May-2025 12:49:14 America/Mexico_City] PHP Notice:  Undefined variable: ires in /home/connectm/syslasvinas.com/pages/caja.php on line 29
+[12-May-2025 12:49:57 America/Mexico_City] PHP Notice:  Undefined variable: ires in /home/connectm/syslasvinas.com/pages/caja.php on line 29
+[12-May-2025 13:08:20 America/Mexico_City] PHP Notice:  Undefined variable: ires in /home/connectm/syslasvinas.com/pages/caja.php on line 29
+[12-May-2025 13:08:50 America/Mexico_City] PHP Notice:  Undefined variable: ires in /home/connectm/syslasvinas.com/pages/caja.php on line 29
+[12-May-2025 14:49:53 America/Mexico_City] PHP Warning:  include(modal_help.php): failed to open stream: No such file or directory in /home/connectm/syslasvinas.com/pages/medico.php on line 21
+[12-May-2025 14:49:53 America/Mexico_City] PHP Warning:  include(modal_help.php): failed to open stream: No such file or directory in /home/connectm/syslasvinas.com/pages/medico.php on line 21
+[12-May-2025 14:49:53 America/Mexico_City] PHP Warning:  include(): Failed opening 'modal_help.php' for inclusion (include_path='.:/opt/alt/php72/usr/share/pear') in /home/connectm/syslasvinas.com/pages/medico.php on line 21
+[12-May-2025 14:51:22 America/Mexico_City] PHP Warning:  include(modal_help.php): failed to open stream: No such file or directory in /home/connectm/syslasvinas.com/pages/medico.php on line 21
+[12-May-2025 14:51:22 America/Mexico_City] PHP Warning:  include(modal_help.php): failed to open stream: No such file or directory in /home/connectm/syslasvinas.com/pages/medico.php on line 21
+[12-May-2025 14:51:22 America/Mexico_City] PHP Warning:  include(): Failed opening 'modal_help.php' for inclusion (include_path='.:/opt/alt/php72/usr/share/pear') in /home/connectm/syslasvinas.com/pages/medico.php on line 21
+[12-May-2025 16:08:13 America/Mexico_City] PHP Notice:  Undefined variable: ires in /home/connectm/syslasvinas.com/pages/caja.php on line 29
+[12-May-2025 16:24:07 America/Mexico_City] PHP Notice:  Undefined variable: ires in /home/connectm/syslasvinas.com/pages/caja.php on line 29
+[12-May-2025 17:17:54 America/Mexico_City] PHP Warning:  require_once(../quotes11.php): failed to open stream: No such file or directory in /home/connectm/syslasvinas.com/pages/prospectos.php on line 25
+[12-May-2025 17:17:54 America/Mexico_City] PHP Fatal error:  require_once(): Failed opening required '../quotes11.php' (include_path='.:/opt/alt/php72/usr/share/pear') in /home/connectm/syslasvinas.com/pages/prospectos.php on line 25
+[12-May-2025 17:18:00 America/Mexico_City] PHP Warning:  include(modal_help.php): failed to open stream: No such file or directory in /home/connectm/syslasvinas.com/pages/medico.php on line 21
+[12-May-2025 17:18:00 America/Mexico_City] PHP Warning:  include(modal_help.php): failed to open stream: No such file or directory in /home/connectm/syslasvinas.com/pages/medico.php on line 21
+[12-May-2025 17:18:00 America/Mexico_City] PHP Warning:  include(): Failed opening 'modal_help.php' for inclusion (include_path='.:/opt/alt/php72/usr/share/pear') in /home/connectm/syslasvinas.com/pages/medico.php on line 21
+[13-May-2025 12:19:35 America/Mexico_City] PHP Notice:  Undefined variable: ires in /home/connectm/syslasvinas.com/pages/caja.php on line 29
+[13-May-2025 12:28:53 America/Mexico_City] PHP Notice:  Undefined variable: ires in /home/connectm/syslasvinas.com/pages/caja.php on line 29
+[13-May-2025 12:31:15 America/Mexico_City] PHP Notice:  Undefined variable: ires in /home/connectm/syslasvinas.com/pages/caja.php on line 29
+[13-May-2025 12:31:36 America/Mexico_City] PHP Notice:  Undefined variable: ires in /home/connectm/syslasvinas.com/pages/caja.php on line 29
+[13-May-2025 12:32:03 America/Mexico_City] PHP Notice:  Undefined variable: ires in /home/connectm/syslasvinas.com/pages/caja.php on line 29
+[13-May-2025 14:54:13 America/Mexico_City] PHP Notice:  Undefined variable: ires in /home/connectm/syslasvinas.com/pages/caja.php on line 29
+[13-May-2025 14:58:50 America/Mexico_City] PHP Notice:  Undefined variable: ires in /home/connectm/syslasvinas.com/pages/caja.php on line 29
+[13-May-2025 15:17:08 America/Mexico_City] PHP Notice:  Undefined variable: ires in /home/connectm/syslasvinas.com/pages/caja.php on line 29
+[13-May-2025 15:17:29 America/Mexico_City] PHP Notice:  Undefined variable: ires in /home/connectm/syslasvinas.com/pages/caja.php on line 29
+[13-May-2025 15:19:57 America/Mexico_City] PHP Notice:  Undefined variable: ires in /home/connectm/syslasvinas.com/pages/caja.php on line 29
+[13-May-2025 15:20:17 America/Mexico_City] PHP Notice:  Undefined variable: ires in /home/connectm/syslasvinas.com/pages/caja.php on line 29
+[13-May-2025 15:21:12 America/Mexico_City] PHP Notice:  Undefined variable: ires in /home/connectm/syslasvinas.com/pages/caja.php on line 29
+[13-May-2025 15:21:55 America/Mexico_City] PHP Notice:  Undefined variable: ires in /home/connectm/syslasvinas.com/pages/caja.php on line 29
+[13-May-2025 15:47:47 America/Mexico_City] PHP Notice:  Undefined variable: ires in /home/connectm/syslasvinas.com/pages/caja.php on line 29
+[13-May-2025 16:01:49 America/Mexico_City] PHP Notice:  Undefined variable: ires in /home/connectm/syslasvinas.com/pages/caja.php on line 29
+[13-May-2025 16:03:40 America/Mexico_City] PHP Notice:  Undefined variable: ires in /home/connectm/syslasvinas.com/pages/caja.php on line 29
+[13-May-2025 16:04:12 America/Mexico_City] PHP Notice:  Undefined variable: ires in /home/connectm/syslasvinas.com/pages/caja.php on line 29
+[13-May-2025 16:04:41 America/Mexico_City] PHP Warning:  include(modal_help.php): failed to open stream: No such file or directory in /home/connectm/syslasvinas.com/pages/medico.php on line 21
+[13-May-2025 16:04:41 America/Mexico_City] PHP Warning:  include(modal_help.php): failed to open stream: No such file or directory in /home/connectm/syslasvinas.com/pages/medico.php on line 21
+[13-May-2025 16:04:41 America/Mexico_City] PHP Warning:  include(): Failed opening 'modal_help.php' for inclusion (include_path='.:/opt/alt/php72/usr/share/pear') in /home/connectm/syslasvinas.com/pages/medico.php on line 21
+[13-May-2025 16:32:01 America/Mexico_City] PHP Notice:  Undefined variable: ires in /home/connectm/syslasvinas.com/pages/caja.php on line 29
+[13-May-2025 17:14:09 America/Mexico_City] PHP Notice:  Undefined variable: ires in /home/connectm/syslasvinas.com/pages/caja.php on line 29
+[13-May-2025 17:15:04 America/Mexico_City] PHP Notice:  Undefined variable: ires in /home/connectm/syslasvinas.com/pages/caja.php on line 29
+[13-May-2025 17:23:21 America/Mexico_City] PHP Notice:  Undefined variable: ires in /home/connectm/syslasvinas.com/pages/caja.php on line 29
+[13-May-2025 17:34:24 America/Mexico_City] PHP Notice:  Undefined variable: ires in /home/connectm/syslasvinas.com/pages/caja.php on line 29
+[13-May-2025 17:35:38 America/Mexico_City] PHP Notice:  Undefined variable: ires in /home/connectm/syslasvinas.com/pages/caja.php on line 29
+[13-May-2025 17:35:58 America/Mexico_City] PHP Notice:  Undefined variable: ires in /home/connectm/syslasvinas.com/pages/caja.php on line 29
+[14-May-2025 11:14:19 America/Mexico_City] PHP Notice:  Undefined variable: ires in /home/connectm/syslasvinas.com/pages/caja.php on line 29
+[14-May-2025 11:32:01 America/Mexico_City] PHP Notice:  Undefined variable: ires in /home/connectm/syslasvinas.com/pages/caja.php on line 29
+[14-May-2025 11:32:38 America/Mexico_City] PHP Notice:  Undefined variable: ires in /home/connectm/syslasvinas.com/pages/caja.php on line 29
+[14-May-2025 11:33:14 America/Mexico_City] PHP Notice:  Undefined variable: ires in /home/connectm/syslasvinas.com/pages/caja.php on line 29
+[14-May-2025 11:33:58 America/Mexico_City] PHP Notice:  Undefined variable: ires in /home/connectm/syslasvinas.com/pages/caja.php on line 29
+[14-May-2025 11:34:39 America/Mexico_City] PHP Notice:  Undefined variable: ires in /home/connectm/syslasvinas.com/pages/caja.php on line 29
+[14-May-2025 11:40:40 America/Mexico_City] PHP Notice:  Undefined variable: ires in /home/connectm/syslasvinas.com/pages/caja.php on line 29
+[14-May-2025 12:21:52 America/Mexico_City] PHP Warning:  include(modal_help.php): failed to open stream: No such file or directory in /home/connectm/syslasvinas.com/pages/medico.php on line 21
+[14-May-2025 12:21:52 America/Mexico_City] PHP Warning:  include(modal_help.php): failed to open stream: No such file or directory in /home/connectm/syslasvinas.com/pages/medico.php on line 21
+[14-May-2025 12:21:52 America/Mexico_City] PHP Warning:  include(): Failed opening 'modal_help.php' for inclusion (include_path='.:/opt/alt/php72/usr/share/pear') in /home/connectm/syslasvinas.com/pages/medico.php on line 21
+[14-May-2025 12:43:40 America/Mexico_City] PHP Notice:  Undefined variable: ires in /home/connectm/syslasvinas.com/pages/caja.php on line 29
+[14-May-2025 12:51:46 America/Mexico_City] PHP Notice:  Undefined variable: ires in /home/connectm/syslasvinas.com/pages/caja.php on line 29
+[14-May-2025 13:09:32 America/Mexico_City] PHP Notice:  Undefined variable: rid in /home/connectm/syslasvinas.com/pages/nfo2.php on line 3
+[14-May-2025 13:09:32 America/Mexico_City] PHP Notice:  Undefined variable: rid in /home/connectm/syslasvinas.com/pages/nfo2.php on line 4
+[14-May-2025 13:09:32 America/Mexico_City] PHP Notice:  Undefined variable: rid in /home/connectm/syslasvinas.com/pages/nfo2.php on line 5
+[14-May-2025 13:09:32 America/Mexico_City] PHP Notice:  Undefined variable: rid in /home/connectm/syslasvinas.com/pages/nfo4.php on line 5
+[14-May-2025 13:09:32 America/Mexico_City] PHP Notice:  Undefined variable: rid in /home/connectm/syslasvinas.com/pages/nfo4.php on line 45
+[14-May-2025 13:09:32 America/Mexico_City] PHP Notice:  Undefined variable: rid in /home/connectm/syslasvinas.com/pages/nfo5.php on line 5
+[14-May-2025 13:09:32 America/Mexico_City] PHP Notice:  Undefined variable: rid in /home/connectm/syslasvinas.com/pages/nfo5.php on line 6
+[14-May-2025 13:09:32 America/Mexico_City] PHP Warning:  require_once(funcs.php): failed to open stream: No such file or directory in /home/connectm/syslasvinas.com/pages/nfo5.php on line 119
+[14-May-2025 13:09:32 America/Mexico_City] PHP Fatal error:  require_once(): Failed opening required 'funcs.php' (include_path='.:/opt/alt/php72/usr/share/pear') in /home/connectm/syslasvinas.com/pages/nfo5.php on line 119
+[14-May-2025 14:31:02 America/Mexico_City] PHP Notice:  Undefined variable: ires in /home/connectm/syslasvinas.com/pages/caja.php on line 29
+[14-May-2025 14:31:21 America/Mexico_City] PHP Notice:  Undefined variable: ires in /home/connectm/syslasvinas.com/pages/caja.php on line 29
+[14-May-2025 15:21:51 America/Mexico_City] PHP Notice:  Undefined variable: ires in /home/connectm/syslasvinas.com/pages/caja.php on line 29
+[14-May-2025 16:43:04 America/Mexico_City] PHP Notice:  Undefined variable: ires in /home/connectm/syslasvinas.com/pages/caja.php on line 29
+[14-May-2025 16:44:06 America/Mexico_City] PHP Notice:  Undefined variable: ires in /home/connectm/syslasvinas.com/pages/caja.php on line 29
+[14-May-2025 16:45:57 America/Mexico_City] PHP Notice:  Undefined variable: ires in /home/connectm/syslasvinas.com/pages/caja.php on line 29
+[14-May-2025 17:07:44 America/Mexico_City] PHP Warning:  include(modal_help.php): failed to open stream: No such file or directory in /home/connectm/syslasvinas.com/pages/medico.php on line 21
+[14-May-2025 17:07:44 America/Mexico_City] PHP Warning:  include(modal_help.php): failed to open stream: No such file or directory in /home/connectm/syslasvinas.com/pages/medico.php on line 21
+[14-May-2025 17:07:44 America/Mexico_City] PHP Warning:  include(): Failed opening 'modal_help.php' for inclusion (include_path='.:/opt/alt/php72/usr/share/pear') in /home/connectm/syslasvinas.com/pages/medico.php on line 21
+[14-May-2025 17:15:25 America/Mexico_City] PHP Notice:  Undefined variable: ires in /home/connectm/syslasvinas.com/pages/caja.php on line 29
+[15-May-2025 12:36:23 America/Mexico_City] PHP Notice:  Undefined variable: ires in /home/connectm/syslasvinas.com/pages/caja.php on line 29
+[15-May-2025 12:53:03 America/Mexico_City] PHP Notice:  Undefined variable: ires in /home/connectm/syslasvinas.com/pages/caja.php on line 29
+[15-May-2025 13:41:06 America/Mexico_City] PHP Notice:  Undefined variable: ires in /home/connectm/syslasvinas.com/pages/caja.php on line 29
+[15-May-2025 15:25:43 America/Mexico_City] PHP Notice:  Undefined variable: ires in /home/connectm/syslasvinas.com/pages/caja.php on line 29
+[15-May-2025 15:33:23 America/Mexico_City] PHP Notice:  Undefined variable: ires in /home/connectm/syslasvinas.com/pages/caja.php on line 29
+[15-May-2025 15:41:24 America/Mexico_City] PHP Notice:  Undefined variable: ires in /home/connectm/syslasvinas.com/pages/caja.php on line 29
+[15-May-2025 16:38:24 America/Mexico_City] PHP Notice:  Undefined variable: ires in /home/connectm/syslasvinas.com/pages/caja.php on line 29
+[15-May-2025 16:39:30 America/Mexico_City] PHP Notice:  Undefined variable: ires in /home/connectm/syslasvinas.com/pages/caja.php on line 29
+[15-May-2025 16:40:24 America/Mexico_City] PHP Notice:  Undefined variable: ires in /home/connectm/syslasvinas.com/pages/caja.php on line 29
+[15-May-2025 16:40:39 America/Mexico_City] PHP Notice:  Undefined variable: ires in /home/connectm/syslasvinas.com/pages/caja.php on line 29
+[15-May-2025 17:26:39 America/Mexico_City] PHP Warning:  include(modal_help.php): failed to open stream: No such file or directory in /home/connectm/syslasvinas.com/pages/medico.php on line 21
+[15-May-2025 17:26:39 America/Mexico_City] PHP Warning:  include(modal_help.php): failed to open stream: No such file or directory in /home/connectm/syslasvinas.com/pages/medico.php on line 21
+[15-May-2025 17:26:39 America/Mexico_City] PHP Warning:  include(): Failed opening 'modal_help.php' for inclusion (include_path='.:/opt/alt/php72/usr/share/pear') in /home/connectm/syslasvinas.com/pages/medico.php on line 21
+[15-May-2025 17:39:23 America/Mexico_City] PHP Notice:  Undefined variable: nidm in /home/connectm/syslasvinas.com/pages/plus_medica.php on line 61
+[15-May-2025 17:39:23 America/Mexico_City] PHP Notice:  Undefined variable: nidm in /home/connectm/syslasvinas.com/pages/plus_medica.php on line 76
+[15-May-2025 17:41:21 America/Mexico_City] PHP Notice:  Undefined variable: nidm in /home/connectm/syslasvinas.com/pages/plus_medica.php on line 61
+[15-May-2025 17:41:21 America/Mexico_City] PHP Notice:  Undefined variable: nidm in /home/connectm/syslasvinas.com/pages/plus_medica.php on line 76
+[15-May-2025 17:53:51 America/Mexico_City] PHP Notice:  Undefined variable: ires in /home/connectm/syslasvinas.com/pages/caja.php on line 29
+[15-May-2025 17:54:32 America/Mexico_City] PHP Notice:  Undefined variable: ires in /home/connectm/syslasvinas.com/pages/caja.php on line 29

@@ -1,0 +1,5 @@
+[28-Aug-2024 23:35:56 America/Mexico_City] PHP Warning:  Creating default object from empty value in /home/connectm/lasvinas.mx/lasvinas/smtp/send.php on line 42
+[03-Sep-2024 19:37:59 America/Mexico_City] PHP Fatal error:  Uncaught Error: Function name must be a string in /home/connectm/lasvinas.mx/lasvinas/smtp/send.php:18
+Stack trace:
+#0 {main}
+  thrown in /home/connectm/lasvinas.mx/lasvinas/smtp/send.php on line 18
