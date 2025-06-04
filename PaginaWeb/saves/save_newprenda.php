@@ -32,5 +32,5 @@ $rrid = $db2->lastInsertId();
 	$sav2->execute(array(':rrid'=>$rrid, ':star'=>$star, ':motr'=>$motr, ':fecr'=>$fa, ':perr'=>$perr));
 			}
   } else {      echo "<span class='disponible'> Error desconocido, intenta nuevamente.</span>";	  }
-
+//DAFNNX GUARDA NUEVO ENSER
 ?>

@@ -27,18 +27,27 @@
 		if ($numrows>0){		?>
 			<div class="">
 			  <table class="table" data-responsive="table" id="resultTable">
-			  	<thead>
-				<tr>			
-					<th class='text-center w90'>*</th>
-					<th class='text-center'>Nombre</th>
-					<th class='text-center pad'>Alergias</th>				
-				</tr>
-				</thead>
+	<thead>
+<tr>			
+	<th style="text-align: left;" class="w90">*</th>
+	<th style="text-align: left;">Nombre</th>
+	<th style="text-align: left;">Apodo</th>
+	<th style="text-align: left;">Habitación</th>
+	<th style="text-align: left;">Tipo de estancia</th>
+	<th class="text-center pad">Alergias</th>				
+</tr>
+</thead>
+
+
+
 <tbody class="111">
 				<?php
 				for($i=0; $row = $query->fetch(); $i++){
 						$id=$row['id_residente'];
 						$nr=$row['nombre_residente'];
+                        $apodo = $row['apodo_residente'];
+                        $habitacion = $row['habitacion_residente'];
+                        $tipologia = $row['tipologia_residente'];
 						$alergia=$row['alergia_residente'];
 						
 						// Determinar el color del semáforo
@@ -47,21 +56,26 @@
 						$texto_alergia = $tiene_alergia ? $alergia : 'Sin alergias registradas';
 					?>	
 					<tr>
-						<td class="w120">
-							<a href="#" class='del' title='Eliminar' onclick="eliminar('<?php echo $id; ?>', 'residentes', 'id_residente', '<?php echo $uid; ?>')"></a>						
-							<div href="#" class='stat' title='Status' onclick="mdlsta(modstatus, 'statusclose', '<?php echo $id; ?>', '<?php echo $nr; ?>')"></div>
-							<div href="#" class='pass' title='Acceso' onclick="mdlpass(modpass, 'passclose', '<?php echo $id; ?>', '<?php echo $nr; ?>')"></div>
-							<a href="#" class='det' title='Detalles' onclick="detalles('<?php echo $id; ?>', '<?php echo $uid; ?>')"></a>
-						</td>
-						<td><?php echo $nr; ?></td>
-						<td class="text-center">
-							<div class="semaforo-alergia <?php echo $color_semaforo; ?>" 
-								 onclick="mostrarAlergias('<?php echo addslashes($nr); ?>', '<?php echo addslashes($texto_alergia); ?>')"
-								 title="<?php echo $tiene_alergia ? 'Tiene alergias - Click para ver detalles' : 'Sin alergias registradas'; ?>">
-								<div class="foco"></div>
-							</div>
-						</td>													
-					</tr>					
+                        <td class="w120">
+                            <a href="#" class='del' title='Eliminar' onclick="eliminar('<?php echo $id; ?>', 'residentes', 'id_residente', '<?php echo $uid; ?>')"></a>						
+                            <div href="#" class='stat' title='Status' onclick="mdlsta(modstatus, 'statusclose', '<?php echo $id; ?>', '<?php echo $nr; ?>')"></div>
+                            <div href="#" class='pass' title='Acceso' onclick="mdlpass(modpass, 'passclose', '<?php echo $id; ?>', '<?php echo $nr; ?>')"></div>
+                            <a href="#" class='det' title='Detalles' onclick="detalles('<?php echo $id; ?>', '<?php echo $uid; ?>')"></a>
+                        </td>
+                        <td><?php echo $nr; ?></td>
+                        <td><?php echo $apodo; ?></td>
+                        <td class="text-center"><?php echo $habitacion; ?></td>
+                        <td class="text-center"><?php echo $tipologia; ?></td>
+                        <td class="text-center">
+                            <div class="semaforo-alergia <?php echo $color_semaforo; ?>" 
+                                onclick="mostrarAlergias('<?php echo addslashes($nr); ?>', '<?php echo addslashes($texto_alergia); ?>')"
+                                title="<?php echo $tiene_alergia ? 'Tiene alergias - Click para ver detalles' : 'Sin alergias registradas'; ?>">
+                                <div class="foco"></div>
+                            </div>
+                        </td>												
+                    </tr>
+
+
 					<?php    }	?>
 </tbody>
 			  </table>
