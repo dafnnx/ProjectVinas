@@ -16,12 +16,28 @@
 			$sWhere = substr_replace( $sWhere, "", -3 );
 			$sWhere .= ')';
 		}
-		$sWhere.=" order by nombre_medica";
-		$count_query= $db2->prepare("SELECT count(*) AS numrows FROM $sTable $sWhere");
+		$sWhere.=" order by m.nombre_medica";
+		
+		// Consulta optimizada para el conteo sin JOINs innecesarios
+		$count_sWhere = str_replace('m.', '', $sWhere);
+		$count_query= $db2->prepare("SELECT count(*) AS numrows FROM $sTable $count_sWhere");
 		$count_query->execute();
 		for($i=0; $row = $count_query->fetch(); $i++){
 		$numrows = $row['numrows'];}
-		$query=$db2->prepare("SELECT * FROM $sTable $sWhere");
+		
+		// Consulta principal optimizada con LIMIT para paginación
+		$query=$db2->prepare("SELECT m.*, 
+		                      p.nombre_presentacion,
+		                      e.nombre_envase,
+		                      (SELECT GROUP_CONCAT(a.nombre_activo SEPARATOR ', ') 
+		                       FROM rel_act_med ram 
+		                       JOIN activos a ON ram.id_activo = a.id_activo 
+		                       WHERE ram.id_medica = m.id_medica) as principios_activos 
+		                      FROM $sTable m 
+		                      LEFT JOIN presentaciones p ON m.presenta_medica = p.id_presentacion
+		                      LEFT JOIN envases e ON m.envase_medica = e.id_envase
+		                      $sWhere 
+		                      LIMIT 100");
 		$query->execute();
 		if ($numrows>0){		?>
 			<div class="">
@@ -30,19 +46,13 @@
 				<tr>
 					<th class='text-center w60'>*</th>	
 					<th class='text-center'>ID</th>
-					<th class='text-center'>CVE SAE</th>				
 					<th class='text-center'>Código de Barras</th>				
-					<th class='text-center'>Nombre</th>
-					<th class='text-center'>Prod. Sanitario</th>
-					<th class='text-center'>Unidosis</th>
-					<th class='text-center'>Cabe Dispensario</th>
-					<th class='text-center'>Necesita Frío</th>
-					<th class='text-center'>Envase</th>
-					<th class='text-center'>Unidad</th>
+					<th class='text-center'>Nombre Comercial</th>
+					<th class='text-center'>Principio Activo</th>
+					<th class='text-center'>Concentración (ml)</th>
 					<th class='text-center'>Presentación</th>
-					<th class='text-center'>Cantidad Ind.</th>
-					<th class='text-center'>Stock</th>
-					<th class='text-center'>Clave SAT</th>
+					<th class='text-center'>Cantidad</th>
+					<th class='text-center'>Forma Farmacéutica</th>
 					<th class='text-center'>Observaciones</th>					      						
 				</tr>
 				</thead>
@@ -52,18 +62,21 @@
 						$id= $row['id_medica'];
 						$cve_sae= $row['cve_sae'];
           				$barras= $row['barras_medica'];
-          				$nombre= $row['nombre_medica'];
+          				$nombre= $row['nombre_medica']; // Nombre Comercial
           				$sani= $row['sani_medica'];
           				$unidosis= $row['unidosis_medica'];
           				$cabedisp= $row['cabedisp_medica'];
           				$frio= $row['frio_medica'];
-          				$envase= $row['envase_medica'];
+          				$envase= $row['envase_medica']; // Forma Farmacéutica
           				$unidad= $row['unidad_medica'];
-          				$presenta= $row['presenta_medica'];
-          				$qty= $row['qtyind_medica'];
+          				$presenta= $row['nombre_presentacion'] ?: 'N/A'; // Nombre de presentación
+          				$nombre_envase= $row['nombre_envase'] ?: 'N/A'; // Nombre del envase
+          				$qty= $row['qtyind_medica']; // Cantidad
           				$stock= $row['stock_medica'];
           				$clave_sat= $row['clave_sat'];
-          				$observa= $row['observa_medica'];
+          				$observa= $row['observa_medica']; // Observaciones
+          				$mililitros= $row['mililitros_medica']; // Concentración
+          				$principio_activo = $row['principios_activos'] ?: 'N/A'; // Principios activos
 					?>
 					<tr>
 						<td>
@@ -71,19 +84,13 @@
 							<a href="#" class='det' title='Detalles' onclick="detalles('<?php echo $id_id; ?>', '<?php echo $id; ?>')"></a>
 						</td>
 						<td><?php echo $id; ?></td>
-						<td><?php echo $cve_sae; ?></td>
 						<td><?php echo $barras; ?></td>
 						<td><?php echo $nombre; ?></td>
-						<td><?php echo ($sani == 'si') ? 'Sí' : 'No'; ?></td>
-						<td><?php echo ($unidosis == 'si') ? 'Sí' : 'No'; ?></td>
-						<td><?php echo ($cabedisp == 'si') ? 'Sí' : 'No'; ?></td>
-						<td><?php echo ($frio == 'si') ? 'Sí' : 'No'; ?></td>
-						<td><?php echo $envase; ?></td>
-						<td><?php echo $unidad; ?></td>
+						<td><?php echo $principio_activo; ?></td>
+						<td><?php echo ($mililitros !== null) ? $mililitros . ' ml' : 'N/A'; ?></td>
 						<td><?php echo $presenta; ?></td>
-						<td><?php echo $qty; ?></td> 
-						<td><?php echo $stock; ?></td>
-						<td><?php echo $clave_sat; ?></td>
+						<td><?php echo $qty; ?></td>
+						<td><?php echo $nombre_envase; ?></td>
 						<td><?php echo substr($observa, 0, 50) . (strlen($observa) > 50 ? '...' : ''); ?></td>						                  						
 					</tr>
 					<?php	}	?>

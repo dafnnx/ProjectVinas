@@ -113,6 +113,10 @@ require_once ("../cn/connect2.php"); ?>
     <div class="padd5">
           <input type="number" placeholder="Stock (Inventario)" class="nputs" name="stock_medica" autocomplete="off">
     </div>
+    <!-- NUEVO CAMPO PARA MILILITROS -->
+    <div class="padd5">     
+          <input type="number" step="0.01" placeholder="Concentracion" class="nputs" name="mililitros_medica" autocomplete="off">  
+    </div>
     <div class="padd5">     
           <input type="text" placeholder="Clave SAT" class="nputs" name="clave_sat" autocomplete="off">  
     </div>  

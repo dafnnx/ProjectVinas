@@ -18,11 +18,19 @@ if (is_null($ba) or $ba=="") {	$ba="Sin codigo";	}
 	$oa= $_POST['unidad_sat'];
 	$pa= $_POST['cve_sae'];
 	$qa= $_POST['iva_medica'];
-$sql2 = "INSERT INTO medicamentos (id_medica, barras_medica, nombre_medica, sani_medica, unidosis_medica, cabedisp_medica, frio_medica, observa_medica, envase_medica, unidad_medica, presenta_medica, qtyind_medica, stock_medica, clave_sat, unidad_sat, cve_sae, iva_medica) VALUES (:a, :b, :c, :d, :e, :f, :g, :h, :i, :j, :k, :l, :m, :n, :o, :p, :q)";
+	// NUEVO CAMPO PARA MILILITROS
+	$ra= $_POST['mililitros_medica'];
+	// Si no se ingresa valor, asignar NULL
+	if (is_null($ra) or $ra=="") { $ra = NULL; }
+
+$sql2 = "INSERT INTO medicamentos (id_medica, barras_medica, nombre_medica, sani_medica, unidosis_medica, cabedisp_medica, frio_medica, observa_medica, envase_medica, unidad_medica, presenta_medica, qtyind_medica, stock_medica, clave_sat, unidad_sat, cve_sae, iva_medica, mililitros_medica) VALUES (:a, :b, :c, :d, :e, :f, :g, :h, :i, :j, :k, :l, :m, :n, :o, :p, :q, :r)";
+
 $sav = $db2->prepare($sql2);
-$sav->execute(array(':a'=>$aa,':b'=>$ba,':c'=>$ca,':d'=>$da,':e'=>$ea,':f'=>$fa,':g'=>$ga,':h'=>$ha,':i'=>$ia,':j'=>$ja,':k'=>$ka,':l'=>$la,':m'=>$ma,':n'=>$na,':o'=>$oa,':p'=>$pa,':q'=>$qa));
+$sav->execute(array(':a'=>$aa,':b'=>$ba,':c'=>$ca,':d'=>$da,':e'=>$ea,':f'=>$fa,':g'=>$ga,':h'=>$ha,':i'=>$ia,':j'=>$ja,':k'=>$ka,':l'=>$la,':m'=>$ma,':n'=>$na,':o'=>$oa,':p'=>$pa,':q'=>$qa,':r'=>$ra));
+
 if($sav) {
       echo "<span class='uso'> Producto editado correctamente.</span>";
   }else{
       echo "<span class='disponible'> Error desconocido, intenta nuevamente.</span>";
-  } ?>
+  } 
+?>
