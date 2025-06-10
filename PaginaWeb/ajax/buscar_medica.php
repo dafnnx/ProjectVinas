@@ -53,6 +53,7 @@
 					<th class='text-center'>Presentación</th>
 					<th class='text-center'>Cantidad</th>
 					<th class='text-center'>Forma Farmacéutica</th>
+					<th class='text-center'>Stock</th>
 					<th class='text-center'>Observaciones</th>					      						
 				</tr>
 				</thead>
@@ -91,6 +92,7 @@
 						<td><?php echo $presenta; ?></td>
 						<td><?php echo $qty; ?></td>
 						<td><?php echo $nombre_envase; ?></td>
+						<td><?php echo $stock; ?>
 						<td><?php echo substr($observa, 0, 50) . (strlen($observa) > 50 ? '...' : ''); ?></td>						                  						
 					</tr>
 					<?php	}	?>
