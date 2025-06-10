@@ -1,0 +1,10 @@
+ALTER TABLE medicamentos 
+ADD COLUMN mililitros_medica DECIMAL(10,2) NULL 
+COMMENT 'Cantidad en mililitros del medicamento';.
+
+
+CREATE INDEX idx_rel_act_med_medica ON rel_act_med(id_medica); 
+CREATE INDEX idx_rel_act_med_activo ON rel_act_med(id_activo); 
+CREATE INDEX idx_medicamentos_nombre ON medicamentos(nombre_medica); CREATE INDEX idx_medicamentos_barras ON medicamentos(barras_medica);
+CREATE INDEX idx_medicamentos_presenta ON medicamentos(presenta_medica);
+CREATE INDEX idx_presentaciones_id ON presentaciones(id_presentacion);
