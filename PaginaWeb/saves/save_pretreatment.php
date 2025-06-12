@@ -37,7 +37,47 @@ try {
     $sav->execute(array(':a'=>$aa,':b'=>$ba,':c'=>$ca,':d'=>$da,':e'=>$ea,':f'=>$fa,':g'=>$ga,':h'=>$ha,':i'=>$ia,':j'=>$ja,':k'=>$ka,':l'=>$la,':m'=>$ma,':n'=>$na,':o'=>$oa,':p'=>$pa,':q'=>$qa,':r'=>$ra,':s'=>$sa,':t'=>$ta,':u'=>$ua,':v'=>$va));
     
     if($sav) {
-        // 2. Buscar el id_inventario basado en id_residente y medicamento_inv
+        // 2. Calcular el total real de tabletas para todo el tratamiento
+        $fecha_inicio = new DateTime($ba);
+        $fecha_fin = new DateTime($ca);
+        
+        // Obtener los días seleccionados del array
+        $dias_seleccionados = array();
+        if(isset($ga) && !empty($ga)) {
+            $dias_seleccionados = explode(',', $ga);
+        }
+        
+        // Mapear números de días (1=Lunes, 2=Martes, etc.)
+        $dias_semana = array(
+            1 => 1, // Lunes
+            2 => 2, // Martes
+            3 => 3, // Miércoles
+            4 => 4, // Jueves
+            5 => 5, // Viernes
+            6 => 6, // Sábado
+            7 => 0  // Domingo (en PHP DateTime, domingo es 0)
+        );
+        
+        $total_dias_tratamiento = 0;
+        
+        // Iterar desde fecha inicio hasta fecha fin
+        $fecha_actual = clone $fecha_inicio;
+        while($fecha_actual <= $fecha_fin) {
+            $dia_semana_actual = $fecha_actual->format('N'); // 1=Lunes, 7=Domingo
+            
+            // Verificar si este día está en los días seleccionados
+            if(in_array($dia_semana_actual, $dias_seleccionados)) {
+                $total_dias_tratamiento++;
+            }
+            
+            // Avanzar al siguiente día
+            $fecha_actual->add(new DateInterval('P1D'));
+        }
+        
+        // Calcular total de tabletas = días de tratamiento × tabletas por día
+        $total_tabletas_tratamiento = $total_dias_tratamiento * $ja; // $ja es dia_tratamiento
+        
+        // 3. Buscar el id_inventario basado en id_residente y medicamento_inv
         $query_inventario = $db2->prepare("SELECT id_inventario, cantidad_inv, medicamento_inv, nombre_medica FROM inventarios WHERE id_residente = :id_residente AND medicamento_inv = :medicamento_inv");
         $query_inventario->bindParam(':id_residente', $aa);
         $query_inventario->bindParam(':medicamento_inv', $da);
@@ -64,8 +104,8 @@ try {
                 // Stock actual en unidades individuales = cantidad_actual * qtyind_medica
                 $stock_unidades_actual = $cantidad_actual * $qtyind_medica;
                 
-                // Restar la cantidad del tratamiento semanal
-                $stock_unidades_restante = $stock_unidades_actual - $ia;
+                // Restar la cantidad del tratamiento completo
+                $stock_unidades_restante = $stock_unidades_actual - $total_tabletas_tratamiento;
                 
                 // Convertir de vuelta a cajas/stock
                 $nueva_cantidad = $stock_unidades_restante / $qtyind_medica;
@@ -102,7 +142,7 @@ try {
                     ':e' => $fecha_actual, 
                     ':f' => $aa, 
                     ':g' => $nres, 
-                    ':h' => $ia, // cantidad utilizada en el tratamiento
+                    ':h' => $total_tabletas_tratamiento, // cantidad total utilizada en el tratamiento completo
                     ':i' => $nueva_cantidad // stock final
                 ));
                 
