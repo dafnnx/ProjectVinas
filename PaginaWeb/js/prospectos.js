@@ -397,47 +397,72 @@ function loadinv(rid){
 /*loadinventario*/
 
 /* pretratamiento */
-function save_trata(rid){
-   var tstid= $('#resic_treat').val(); 
-   if (rid) {     var nrid=rid;     }
-      else {   nrid= tstid;  }
-if (tstid || rid) {
-   var m_trata = $('#m_trata').val(); 
-   var t_trata = $('#total_tratamiento').val();
-if (t_trata == "" || t_trata == null && m_trata=="N/A") {
-   Swal.fire({
-               icon: 'error',
-               title: 'Descripción y/o total semanal vacío',
-               showConfirmButton: false,
-               timer: 1500
-               })
-}
-else {
- var parametros = $('#upfrtr').find('select, textarea, input').serialize();
-    $.ajax({
+function save_trata(rid) {
+   var tstid = $('#resic_treat').val(); 
+   var nrid = rid || tstid;
+
+   if (tstid || rid) {
+      var m_trata = $('#m_trata').val(); 
+      var t_trata = $('#total_tratamiento').val();
+
+      if ((t_trata == "" || t_trata == null) && m_trata == "N/A") {
+         Swal.fire({
+            icon: 'error',
+            title: 'Descripción y/o total semanal vacío',
+            showConfirmButton: false,
+            timer: 1500
+         });
+         return;  // Salimos porque está inválido
+      }
+
+      var parametros = $('#upfrtr').find('select, textarea, input').serialize();
+
+      $.ajax({
          type: "POST",
          url: "./saves/save_pretreatment.php",
          data: parametros,
-            success:function(){        
+         dataType: 'json',  // importante para interpretar JSON
+         success: function(response) {
+            if(response.success) {
+               console.log("Éxito:", response.message);
+               console.log("ID residente:", response.residente);
                Swal.fire({
-               icon: 'success',
-               title: 'Correcto!!',
-               showConfirmButton: false,
-               timer: 1500
-               })
+                  icon: 'success',
+                  title: response.message,
+                  showConfirmButton: false,
+                  timer: 1500
+               });
+            } else {
+               console.error("Error:", response.message);
+               Swal.fire({
+                  icon: 'error',
+                  title: response.message,
+                  showConfirmButton: false,
+                  timer: 2000
+               });
             }
-   })  
-    event.preventDefault();
-}
-} else {
-         Swal.fire({
+         },
+         error: function(xhr, status, error) {
+            console.error("Error en la petición AJAX:", error);
+            Swal.fire({
                icon: 'error',
-               title: '¡No hay residente seleccionado!',
-               showConfirmButton: false,
-               timer: 1500
-               })
+               title: 'Error en la petición AJAX',
+               text: error,
+               showConfirmButton: true
+            });
          }
- }
+      });
+
+   } else {
+      Swal.fire({
+         icon: 'error',
+         title: '¡No hay residente seleccionado!',
+         showConfirmButton: false,
+         timer: 1500
+      });
+   }
+}
+
 
 
 function save_uptrata(rid){

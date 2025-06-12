@@ -26,30 +26,34 @@
 		$numrows = $row['numrows'];}
 		
 		// Consulta principal optimizada con LIMIT para paginación
-		$query=$db2->prepare("SELECT m.*, 
-		                      p.nombre_presentacion,
-		                      e.nombre_envase,
-		                      (SELECT GROUP_CONCAT(a.nombre_activo SEPARATOR ', ') 
-		                       FROM rel_act_med ram 
-		                       JOIN activos a ON ram.id_activo = a.id_activo 
-		                       WHERE ram.id_medica = m.id_medica) as principios_activos 
-		                      FROM $sTable m 
-		                      LEFT JOIN presentaciones p ON m.presenta_medica = p.id_presentacion
-		                      LEFT JOIN envases e ON m.envase_medica = e.id_envase
-		                      $sWhere 
-		                      LIMIT 100");
+	$query=$db2->prepare("SELECT m.*, 
+                          p.nombre_presentacion,
+                          e.nombre_envase,
+                          u.nombre_unidad,
+                          (SELECT GROUP_CONCAT(a.nombre_activo SEPARATOR ', ') 
+                           FROM rel_act_med ram 
+                           JOIN activos a ON ram.id_activo = a.id_activo 
+                           WHERE ram.id_medica = m.id_medica) as principios_activos 
+                      FROM $sTable m 
+                      LEFT JOIN presentaciones p ON m.presenta_medica = p.id_presentacion
+                      LEFT JOIN envases e ON m.envase_medica = e.id_envase
+                      LEFT JOIN unidades u ON m.unidad_medica = u.id_unidad
+                      $sWhere 
+                      LIMIT 100");
 		$query->execute();
 		if ($numrows>0){		?>
 			<div class="">
 			  <table class="table" data-responsive="table" id="resultTable">
 			  	<thead>
-				<tr>
+				<tr> 
 					<th class='text-center w60'>*</th>	
 					<th class='text-center'>ID</th>
 					<th class='text-center'>Código de Barras</th>				
 					<th class='text-center'>Nombre Comercial</th>
 					<th class='text-center'>Principio Activo</th>
-					<th class='text-center'>Concentración (ml)</th>
+					<th class='text-center'>Concentración</th>
+					<th class='text-center'>Unidad Médica</th>
+
 					<th class='text-center'>Presentación</th>
 					<th class='text-center'>Cantidad</th>
 					<th class='text-center'>Forma Farmacéutica</th>
@@ -70,6 +74,7 @@
           				$frio= $row['frio_medica'];
           				$envase= $row['envase_medica']; // Forma Farmacéutica
           				$unidad= $row['unidad_medica'];
+						$unidad_medica = $row['nombre_unidad'] ?: 'N/A';
           				$presenta= $row['nombre_presentacion'] ?: 'N/A'; // Nombre de presentación
           				$nombre_envase= $row['nombre_envase'] ?: 'N/A'; // Nombre del envase
           				$qty= $row['qtyind_medica']; // Cantidad
@@ -89,6 +94,8 @@
 						<td><?php echo $nombre; ?></td>
 						<td><?php echo $principio_activo; ?></td>
 						<td><?php echo ($mililitros !== null) ? $mililitros . ' ml' : 'N/A'; ?></td>
+						<td><?php echo $unidad_medica; ?></td>
+
 						<td><?php echo $presenta; ?></td>
 						<td><?php echo $qty; ?></td>
 						<td><?php echo $nombre_envase; ?></td>

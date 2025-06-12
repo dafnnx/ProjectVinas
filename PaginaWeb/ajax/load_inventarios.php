@@ -18,7 +18,7 @@
         <tr>
           <th class='text-center'>Fecha</th>
           <th class='text-center'>Descripción</th>
-          <th class='text-center'>Cant.</th>
+          <th class='text-center'>Stock</th>
           <th class='text-center'>Modif.</th>
           <th class='text-center'>*</th>
         </tr>

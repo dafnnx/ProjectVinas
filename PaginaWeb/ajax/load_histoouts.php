@@ -48,7 +48,7 @@ $query->execute();
                         $clase_fila = "eliminacion";
                         break;
                     case '3':
-                        $action = "Aplicación";
+                        $action = "Tratamiento";
                         $clase_fila = "aplicacion";
                         break;
                     default:
