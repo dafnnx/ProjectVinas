@@ -51,14 +51,34 @@ try {
             $med = $inventario_encontrado['medicamento_inv'];
             $nom = $inventario_encontrado['nombre_medica'];
             
-            // 3. Actualizar el stock (restar la cantidad del tratamiento)
-            $nueva_cantidad = $cantidad_actual - $ia; // $ia es total_tratamiento
+            // 3. Obtener qtyind_medica de la tabla medicamentos
+            $query_medicamento = $db2->prepare("SELECT qtyind_medica FROM medicamentos WHERE id_medica = :medicamento_inv");
+            $query_medicamento->bindParam(':medicamento_inv', $med);
+            $query_medicamento->execute();
+            $medicamento_data = $query_medicamento->fetch();
             
-            $sql_update = "UPDATE inventarios SET cantidad_inv = :nueva_cantidad WHERE id_inventario = :id_inventario";
-            $update_stmt = $db2->prepare($sql_update);
-            $update_stmt->bindParam(':nueva_cantidad', $nueva_cantidad);
-            $update_stmt->bindParam(':id_inventario', $id_inventario);
-            $update_resultado = $update_stmt->execute();
+            if($medicamento_data) {
+                $qtyind_medica = $medicamento_data['qtyind_medica'];
+                
+                // 4. Calcular el nuevo stock
+                // Stock actual en unidades individuales = cantidad_actual * qtyind_medica
+                $stock_unidades_actual = $cantidad_actual * $qtyind_medica;
+                
+                // Restar la cantidad del tratamiento semanal
+                $stock_unidades_restante = $stock_unidades_actual - $ia;
+                
+                // Convertir de vuelta a cajas/stock
+                $nueva_cantidad = $stock_unidades_restante / $qtyind_medica;
+                
+                // Actualizar el stock
+                $sql_update = "UPDATE inventarios SET cantidad_inv = :nueva_cantidad WHERE id_inventario = :id_inventario";
+                $update_stmt = $db2->prepare($sql_update);
+                $update_stmt->bindParam(':nueva_cantidad', $nueva_cantidad);
+                $update_stmt->bindParam(':id_inventario', $id_inventario);
+                $update_resultado = $update_stmt->execute();
+            } else {
+                throw new Exception("No se encontró información del medicamento");
+            }
             
             if($update_resultado) {
                 // 4. Obtener nombre del residente
