@@ -93,7 +93,7 @@
 						<td><?php echo $barras; ?></td>
 						<td><?php echo $nombre; ?></td>
 						<td><?php echo $principio_activo; ?></td>
-						<td><?php echo ($mililitros !== null) ? $mililitros . ' ml' : 'N/A'; ?></td>
+						<td><?php echo ($mililitros !== null) ? $mililitros . ' ' : 'N/A'; ?></td>
 						<td><?php echo $unidad_medica; ?></td>
 
 						<td><?php echo $presenta; ?></td>

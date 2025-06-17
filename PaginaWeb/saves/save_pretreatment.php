@@ -1,6 +1,7 @@
 <?php
 require_once ("../cn/connect2.php");
-
+// Establecer el tipo de contenido como JSON
+header('Content-Type: application/json');
 // Datos del tratamiento
 $aa = $_POST['resic_treat'];
 $ba = $_POST['fecha_ini'];
@@ -101,14 +102,15 @@ try {
                 $qtyind_medica = $medicamento_data['qtyind_medica'];
                 
                 // 4. Calcular el nuevo stock
-                // Stock actual en unidades individuales = cantidad_actual * qtyind_medica
-                $stock_unidades_actual = $cantidad_actual * $qtyind_medica;
+                // Stock actual en unidades individuales = cantidad_actual * qtyind_medica//CAMBIOOOOOOOO
+                $stock_unidades_actual = $cantidad_actual;
                 
                 // Restar la cantidad del tratamiento completo
                 $stock_unidades_restante = $stock_unidades_actual - $total_tabletas_tratamiento;
                 
                 // Convertir de vuelta a cajas/stock
-                $nueva_cantidad = $stock_unidades_restante / $qtyind_medica;
+              //  $nueva_cantidad = $stock_unidades_restante / $qtyind_medica;//CAMBIOOOOOOO
+                $nueva_cantidad = $stock_unidades_restante;
                 
                 // Actualizar el stock
                 $sql_update = "UPDATE inventarios SET cantidad_inv = :nueva_cantidad WHERE id_inventario = :id_inventario";
@@ -149,8 +151,18 @@ try {
                 if($historial_resultado) {
                     // Todo correcto, confirmar transacción
                     $db2->commit();
-                    echo "<span class='disponible'>Tratamiento agregado correctamente. Stock actualizado.</span>";
-                } else {
+ // Respuesta JSON de éxito
+                    echo json_encode([
+                        'success' => true,
+                        'message' => 'Tratamiento agregado correctamente. Stock actualizado.',
+                        'residente' => $aa,
+                        'datos_tratamiento' => [
+                            'total_dias' => $total_dias_tratamiento,
+                            'tabletas_totales' => $total_tabletas_tratamiento,
+                            'stock_anterior' => $cantidad_actual,
+                            'stock_nuevo' => $nueva_cantidad
+                        ]
+                    ]);                } else {
                     throw new Exception("Error al registrar en historial de inventarios");
                 }
             } else {
@@ -159,8 +171,14 @@ try {
         } else {
             // Si no se encuentra el inventario, solo agregar el tratamiento sin actualizar stock
             $db2->commit();
-            echo "<span class='disponible'>Tratamiento agregado. No se encontró inventario para actualizar.</span>";
-        }
+            
+            // Respuesta JSON de éxito sin actualización de stock
+            echo json_encode([
+                'success' => true,
+                'message' => 'Tratamiento agregado. No se encontró inventario para actualizar.',
+                'residente' => $aa,
+                'warning' => 'Stock no actualizado - medicamento no encontrado en inventario'
+            ]);        }
     } else {
         throw new Exception("Error al insertar el tratamiento");
     }
@@ -168,6 +186,15 @@ try {
 } catch (Exception $e) {
     // Revertir transacción en caso de error
     $db2->rollBack();
-    echo "<span class='disponible'>Error: " . $e->getMessage() . "</span>";
+    
+    // Respuesta JSON de error
+    echo json_encode([
+        'success' => false,
+        'message' => 'Error: ' . $e->getMessage(),
+        'error_details' => [
+            'file' => __FILE__,
+            'line' => __LINE__
+        ]
+    ]);
 }
 ?>

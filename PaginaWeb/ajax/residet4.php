@@ -29,7 +29,7 @@
       <input class="nputs w97per" type="hidden" id="fmedicainvname" name="nombre_medica">
          </div> 
          <div class="w25per">
-      <input class="nputs w97per" type="date" name="vencimiento_inv" placeholder="Vencimiento">
+<input class="nputs w97per" type="date" name="vencimiento_inv" placeholder="Vencimiento" required>
          </div> 
          <div class="w25per">
       <input class="nputs w97per" type="number" step="any" id="c_inv" name="cantidad_inv">

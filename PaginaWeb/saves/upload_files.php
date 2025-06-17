@@ -1,4 +1,6 @@
 <?php 
+
+
 $archivos = $_FILES['files']; //esto va a llegar en formato de array, si el name fue files[] 
 $rid = $_POST['rid'];
 $directorio = __DIR__ . DIRECTORY_SEPARATOR . $rid;

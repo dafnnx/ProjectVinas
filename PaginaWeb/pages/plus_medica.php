@@ -115,7 +115,7 @@ require_once ("../cn/connect2.php"); ?>
     </div>
     <!-- NUEVO CAMPO PARA MILILITROS -->
     <div class="padd5">     
-          <input type="number" step="0.01" placeholder="Concentracion" class="nputs" name="mililitros_medica" autocomplete="off">  
+          <input type="number" step="0.01" placeholder="Concentración" class="nputs" name="mililitros_medica" autocomplete="off">  
     </div>
     <div class="padd5">     
           <input type="text" placeholder="Clave SAT" class="nputs" name="clave_sat" autocomplete="off">  

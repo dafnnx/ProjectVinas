@@ -25,6 +25,7 @@
           $cvesat= $row['clave_sat'];
           $unisat= $row['unidad_sat'];
           $iva= $row['iva_medica'];
+          $mililitros= $row['mililitros_medica'];
      }
  
 
@@ -180,6 +181,9 @@ if ($niva) { ?>
     </div>  
     <div class="padd5">
      <div class="meditnfo"> Stock (Inventario) </div><input type="text" class="nputs" name="stock_medica" value="<?php echo $stock; ?>" autocomplete="off">
+    </div>
+    <div class="padd5">     
+     <div class="meditnfo"> Concentración </div><input type="number" step="0.01" class="nputs" name="mililitros_medica" value="<?php echo $mililitros; ?>" autocomplete="off">  
     </div>
     <div class="padd5">     
      <div class="meditnfo"> Clave SAT </div><input type="text" step="any" class="nputs" name="clave_sat" value="<?php echo $cvesat; ?>" autocomplete="off">  

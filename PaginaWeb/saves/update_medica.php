@@ -19,7 +19,11 @@ require_once ("../cn/connect2.php");
 	$pa= $_POST['cve_sae'];
 	$qa= $_POST['clave_sat'];
 	$ra= $_POST['unidad_sat'];
-$sql2 = "UPDATE medicamentos SET barras_medica='$aa', nombre_medica='$ba', sani_medica='$ca', unidosis_medica='$da', cabedisp_medica='$ea', frio_medica='$fa', observa_medica='$ga', envase_medica='$ha', unidad_medica='$ia', presenta_medica='$ja', qtyind_medica='$ka', stock_medica='$la', pcompra_medica='$ma', pventa_medica='$na', iva_medica='$oa', cve_sae='$pa', clave_sat='$qa', unidad_sat='$ra' WHERE id_medica=$id";
+		// NUEVO CAMPO PARA CONCENTRACIÓN
+	$sa= $_POST['mililitros_medica'];
+	// Si no se ingresa valor, asignar NULL
+	if (is_null($sa) or $sa=="") { $sa = NULL; }
+$sql2 = "UPDATE medicamentos SET barras_medica='$aa', nombre_medica='$ba', sani_medica='$ca', unidosis_medica='$da', cabedisp_medica='$ea', frio_medica='$fa', observa_medica='$ga', envase_medica='$ha', unidad_medica='$ia', presenta_medica='$ja', qtyind_medica='$ka', stock_medica='$la', pcompra_medica='$ma', pventa_medica='$na', iva_medica='$oa', cve_sae='$pa', clave_sat='$qa', unidad_sat='$ra' , mililitros_medica = '$sa' WHERE id_medica=$id";
 $sav = $db2->prepare($sql2);
 $sav->execute();
 if($sav) {

@@ -39,8 +39,36 @@ $(document).ready(function(){
       });
    }
 
+   /*
+function loadCumpleanos(){
+    console.log('Función loadCumpleanos ejecutada'); // Debug
+    
+    $.ajax({
+        type: "POST",
+        url: "./ajax/load_cumpleanos.php",
+        beforeSend: function(objeto){
+            console.log('Enviando petición AJAX'); // Debug
+        },
+        success: function(data){
+            console.log('Respuesta recibida:', data); // Debug
+            $('body').append(data);
+            $('#cumpleanosModal').fadeIn(300);
+            $('body').css('overflow', 'hidden');
+        },
+        error: function(xhr, status, error){
+            console.log('Error AJAX:', error); // Debug
+            console.log('Status:', status); // Debug
+            console.log('Response:', xhr.responseText); // Debug
+            alert('Error al cargar los cumpleañeros: ' + error);
+        }
+    });
+    
+    if(typeof event !== 'undefined') {
+        event.preventDefault();
+    }
+}
 
-
+*/
 function check_personal(){ 
  var nom = $('#nombre_personal').val(); 
  var pus = $('#per_usr').val();
