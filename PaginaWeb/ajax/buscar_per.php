@@ -18,6 +18,23 @@
 		}
 	}
 	
+	// Función para determinar prioridad de ordenamiento
+	function obtenerPrioridadContrato($fechaFin) {
+		if (!$fechaFin || $fechaFin == '' || $fechaFin == '0000-00-00') {
+			return 2; // INDEFINIDO
+		}
+		
+		$diasRestantes = calcularDiasRestantes($fechaFin);
+		
+		if ($diasRestantes < 0) {
+			return 4; // VENCIDO
+		} else if ($diasRestantes <= 7) {
+			return 3; // PRÓXIMO A VENCER
+		} else {
+			return 1; // VIGENTE
+		}
+	}
+	
 	if($action == 'ajax'){
 		$q = $_POST['q'];
 		$sta = "1";
@@ -33,7 +50,9 @@
 			$sWhere = substr_replace( $sWhere, "", -3 );
 			$sWhere .= ") AND status_personal='".$sta."'";
 		}
-		$sWhere.=" order by nombre_personal";
+		
+		// Modificamos la consulta para incluir información del contrato y ordenamiento
+		$sWhere .= " ORDER BY nombre_personal";
 		
 		$count_query = $db2->prepare("SELECT count(*) AS numrows FROM $sTable $sWhere");
 		$count_query->execute();
@@ -41,7 +60,76 @@
 			$numrows = $row['numrows'];
 		}
 		
-		$query = $db2->prepare("SELECT * FROM $sTable $sWhere");
+		// Consulta principal que obtiene personal con su información de contrato
+		$querySQL = "
+			SELECT p.*, 
+				   c.fin_contrato,
+				   c.inicio_contrato,
+				   CASE 
+					   WHEN c.fin_contrato IS NULL OR c.fin_contrato = '' OR c.fin_contrato = '0000-00-00' THEN 2
+					   WHEN c.fin_contrato < CURDATE() THEN 4
+					   WHEN DATEDIFF(c.fin_contrato, CURDATE()) <= 7 THEN 3
+					   ELSE 1
+				   END as prioridad_contrato,
+				   CASE 
+					   WHEN c.fin_contrato IS NULL THEN 5
+					   ELSE 0
+				   END as sin_contrato
+			FROM personal p
+			LEFT JOIN (
+				SELECT c1.id_residente, c1.fin_contrato, c1.inicio_contrato
+				FROM contratos c1
+				WHERE c1.id_contrato = (
+					SELECT MAX(c2.id_contrato) 
+					FROM contratos c2 
+					WHERE c2.id_residente = c1.id_residente
+				)
+			) c ON p.id_personal = c.id_residente
+			$sWhere
+			ORDER BY 
+				CASE WHEN c.fin_contrato IS NULL AND c.inicio_contrato IS NULL THEN 5 ELSE 0 END,
+				CASE 
+					WHEN c.fin_contrato IS NULL OR c.fin_contrato = '' OR c.fin_contrato = '0000-00-00' THEN 2
+					WHEN c.fin_contrato < CURDATE() THEN 4
+					WHEN DATEDIFF(c.fin_contrato, CURDATE()) <= 7 THEN 3
+					ELSE 1
+				END,
+				p.nombre_personal
+		";
+		
+		// Reemplazamos la parte del WHERE que se duplicó
+		$querySQL = str_replace("$sWhere ORDER BY", "WHERE", $querySQL);
+		$querySQL = str_replace("WHERE WHERE", "WHERE", $querySQL);
+		
+		// Construcción correcta de la consulta
+		$baseWhere = str_replace(" ORDER BY nombre_personal", "", $sWhere);
+		$querySQL = "
+			SELECT p.*, 
+				   c.fin_contrato,
+				   c.inicio_contrato
+			FROM personal p
+			LEFT JOIN (
+				SELECT c1.id_residente, c1.fin_contrato, c1.inicio_contrato
+				FROM contratos c1
+				WHERE c1.id_contrato = (
+					SELECT MAX(c2.id_contrato) 
+					FROM contratos c2 
+					WHERE c2.id_residente = c1.id_residente
+				)
+			) c ON p.id_personal = c.id_residente
+			$baseWhere
+			ORDER BY 
+				CASE WHEN c.fin_contrato IS NULL AND c.inicio_contrato IS NULL THEN 5 ELSE 0 END,
+				CASE 
+					WHEN c.fin_contrato IS NULL OR c.fin_contrato = '' OR c.fin_contrato = '0000-00-00' THEN 2
+					WHEN c.fin_contrato < CURDATE() THEN 4
+					WHEN DATEDIFF(c.fin_contrato, CURDATE()) <= 7 THEN 3
+					ELSE 1
+				END,
+				p.nombre_personal
+		";
+		
+		$query = $db2->prepare($querySQL);
 		$query->execute();
 		
 		if ($numrows>0){ ?>
@@ -126,6 +214,8 @@
 						$email = $row['mail_personal'];
 						$username = $row['username_personal'];
 						$edad = $row['edad_personal'];
+						$fin = $row['fin_contrato'];
+						$inicio = $row['inicio_contrato'];
 						?>
 						<tr>
 							<td>
@@ -138,72 +228,7 @@
 							<td><?php echo $email; ?></td> 
 							<td>
 								<?php            			
-								$uery = $db2->prepare("SELECT * FROM contratos WHERE id_contrato=(SELECT MAX(id_contrato) AS idcc FROM contratos WHERE id_residente=$id)");
-								$uery->execute();
-								$contratoEncontrado = false;
-								
-								for($j=0; $rowContrato = $uery->fetch(); $j++){
-									$contratoEncontrado = true;
-									$fin = $rowContrato['fin_contrato']; 
-									$inicio = $rowContrato['inicio_contrato'];
-									
-									if (!$fin || $fin == '' || $fin == '0000-00-00') { 
-										// CONTRATO INDEFINIDO - AMARILLO
-										?>
-										<div class="status-indicator status-indefinido">
-											<span class="status-light light-yellow"></span>
-											INDEFINIDO
-										</div>
-										<div class="contract-details">
-											No se definió fecha de fin del contrato
-										</div>
-										<?php 
-									} else {
-										$diasRestantes = calcularDiasRestantes($fin);
-										
-										if ($diasRestantes < 0) { 
-											// CONTRATO VENCIDO - ROJO
-											$diasVencidos = abs($diasRestantes);
-											?>
-											<div class="status-indicator status-vencido">
-												<span class="status-light light-red"></span>
-												VENCIDO
-											</div>
-											<div class="contract-details">
-												Se venció hace <?php echo $diasVencidos; ?> día<?php echo ($diasVencidos != 1) ? 's' : ''; ?> (<?php echo date('d/m/Y', strtotime($fin)); ?>)
-											</div>
-											<?php   
-										} else if ($diasRestantes <= 7) { 
-											// PRÓXIMO A VENCER (7 días o menos) - NARANJA
-											?>
-											<div class="status-indicator status-proximo">
-												<span class="status-light light-orange"></span>
-												PRÓXIMO A VENCER
-											</div>
-											<div class="contract-details">
-												<?php if ($diasRestantes == 0) { ?>
-													Vence HOY (<?php echo date('d/m/Y', strtotime($fin)); ?>)
-												<?php } else { ?>
-													Faltan <?php echo $diasRestantes; ?> día<?php echo ($diasRestantes != 1) ? 's' : ''; ?> para vencer (<?php echo date('d/m/Y', strtotime($fin)); ?>)
-												<?php } ?>
-											</div>
-											<?php
-										} else { 
-											// CONTRATO VIGENTE - VERDE
-											?>
-											<div class="status-indicator status-vigente">
-												<span class="status-light light-green"></span>
-												VIGENTE
-											</div>
-											<div class="contract-details">
-												Vence en <?php echo $diasRestantes; ?> días (<?php echo date('d/m/Y', strtotime($fin)); ?>)
-											</div>
-											<?php 
-										} 
-									}
-								}
-								
-								if (!$contratoEncontrado) {
+								if (!$inicio && !$fin) {
 									// NO HAY CONTRATO
 									?>
 									<div class="status-indicator status-vencido">
@@ -214,6 +239,59 @@
 										No se encontró contrato registrado
 									</div>
 									<?php
+								} else if (!$fin || $fin == '' || $fin == '0000-00-00') { 
+									// CONTRATO INDEFINIDO - AMARILLO
+									?>
+									<div class="status-indicator status-indefinido">
+										<span class="status-light light-yellow"></span>
+										INDEFINIDO
+									</div>
+									<div class="contract-details">
+										No se definió fecha de fin del contrato
+									</div>
+									<?php 
+								} else {
+									$diasRestantes = calcularDiasRestantes($fin);
+									
+									if ($diasRestantes < 0) { 
+										// CONTRATO VENCIDO - ROJO
+										$diasVencidos = abs($diasRestantes);
+										?>
+										<div class="status-indicator status-vencido">
+											<span class="status-light light-red"></span>
+											VENCIDO
+										</div>
+										<div class="contract-details">
+											Se venció hace <?php echo $diasVencidos; ?> día<?php echo ($diasVencidos != 1) ? 's' : ''; ?> (<?php echo date('d/m/Y', strtotime($fin)); ?>)
+										</div>
+										<?php   
+									} else if ($diasRestantes <= 7) { 
+										// PRÓXIMO A VENCER (7 días o menos) - NARANJA
+										?>
+										<div class="status-indicator status-proximo">
+											<span class="status-light light-orange"></span>
+											PRÓXIMO A VENCER
+										</div>
+										<div class="contract-details">
+											<?php if ($diasRestantes == 0) { ?>
+												Vence HOY (<?php echo date('d/m/Y', strtotime($fin)); ?>)
+											<?php } else { ?>
+												Faltan <?php echo $diasRestantes; ?> día<?php echo ($diasRestantes != 1) ? 's' : ''; ?> para vencer (<?php echo date('d/m/Y', strtotime($fin)); ?>)
+											<?php } ?>
+										</div>
+										<?php
+									} else { 
+										// CONTRATO VIGENTE - VERDE
+										?>
+										<div class="status-indicator status-vigente">
+											<span class="status-light light-green"></span>
+											VIGENTE
+										</div>
+										<div class="contract-details">
+											Vence en <?php echo $diasRestantes; ?> días (<?php echo date('d/m/Y', strtotime($fin)); ?>)
+										</div>
+										<?php 
+									} 
 								}
 								?>     
 							</td>
